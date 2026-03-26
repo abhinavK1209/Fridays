@@ -1,0 +1,188 @@
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import BottleIllustration from '@/components/common/BottleIllustration'
+import { products } from '@/data/products'
+import { useReveal } from '@/hooks/useReveal'
+
+const values = [
+  {
+    num: '01',
+    title: 'Radical Honesty',
+    body: "We print our ingredient lists in full, never hide synthetics behind 'fragrance', and price our work transparently. Luxury doesn't require mystery.",
+  },
+  {
+    num: '02',
+    title: 'Obsessive Sourcing',
+    body: 'Our bergamot is Calabrian. Our rose is Damascene. Our oud is ethically harvested. We travel to the source so you never have to wonder.',
+  },
+  {
+    num: '03',
+    title: 'No Compromise Formulas',
+    body: 'Industry standard EDP concentration is 15–20%. Ours starts at 22%. Not because we have to — because you deserve a fragrance that lasts until midnight.',
+  },
+  {
+    num: '04',
+    title: 'Minimal Footprint',
+    body: 'Refillable bottles. Recycled cardboard. Carbon-neutral shipping. We believe that luxury and responsibility are not opposing forces.',
+  },
+]
+
+const timeline = [
+  { year: '2021', event: 'Founded in Miami with a single fragrance and a conviction.' },
+  { year: '2022', event: 'Noir Ember launched. Sold out in 72 hours.' },
+  { year: '2023', event: 'Expanded to six fragrances. Collaboration with master perfumer in Grasse.' },
+  { year: '2024', event: 'Friday\'s Ritual set introduced. Carbon-neutral certification achieved.' },
+  { year: '2025', event: 'Moving to Miami. The next chapter begins.' },
+]
+
+export default function AboutPage() {
+  useReveal()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [])
+
+  return (
+    <>
+      {/* Hero */}
+      <section
+        className="min-h-[60vh] flex items-end pt-32 pb-16 px-6 relative overflow-hidden"
+        style={{
+          background:
+            'radial-gradient(ellipse at 30% 60%, rgba(28,36,60,0.7) 0%, transparent 55%), radial-gradient(ellipse at 70% 20%, rgba(20,24,38,0.5) 0%, transparent 50%), #090b0f',
+        }}
+      >
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms]">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-px bg-amber/60" />
+              <span className="text-xs uppercase tracking-[0.28em] text-amber/80">About Friday's</span>
+            </div>
+            <h1 className="font-serif text-[clamp(2.6rem,5vw,4.5rem)] text-white leading-tight tracking-wide mb-6">
+              Built for the<br />
+              <em className="text-amber not-italic">last hour</em><br />
+              of the week.
+            </h1>
+            <p className="text-silver/65 text-base leading-loose max-w-md">
+              Friday's is a luxury fragrance house founded on a simple idea: the transition from responsibility
+              to freedom deserves its own scent. We build fragrances for ambitious people — those who
+              live fully during the week and even more fully on the weekend.
+            </p>
+          </div>
+          <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] delay-200 flex justify-center lg:justify-end">
+            <BottleIllustration
+              gradient={products[0].bottleGradient}
+              glowColor={products[0].glowColor}
+              accentColor={products[0].accentColor}
+              label="Friday's"
+              sublabel="Noir Ember"
+              size="lg"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Brand manifesto */}
+      <section className="py-24 px-6 border-y border-white/6"
+        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(18,24,42,0.4) 0%, transparent 70%)' }}>
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms]">
+            <p className="font-serif text-[clamp(1.5rem,3vw,2.4rem)] leading-[1.4] text-white/85 tracking-wide">
+              "We believe a fragrance is the most intimate thing you can wear. Not jewelry, not clothing —
+              scent reaches people before you do. It stays after you leave. It is the most personal statement
+              you can make, and we take that seriously."
+            </p>
+            <div className="mt-8 flex items-center justify-center gap-3">
+              <div className="w-12 h-px bg-amber/40" />
+              <span className="text-xs uppercase tracking-[0.22em] text-amber/70">The Friday's Founders</span>
+              <div className="w-12 h-px bg-amber/40" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] mb-14">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-px bg-amber/60" />
+              <span className="text-xs uppercase tracking-[0.28em] text-amber/80">Our Values</span>
+            </div>
+            <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] text-white tracking-wide">
+              What we stand for.
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {values.map(({ num, title, body }, i) => (
+              <div
+                key={num}
+                className={`reveal opacity-0 translate-y-6 transition-all duration-[900ms] p-7 rounded-2xl border border-white/8 hover:border-white/15 transition-colors duration-500`}
+                style={{ transitionDelay: `${i * 100}ms`, background: 'rgba(12,14,20,0.8)' }}
+              >
+                <span className="font-serif text-4xl text-white/10 block mb-4">{num}</span>
+                <h3 className="font-serif text-xl text-white mb-3">{title}</h3>
+                <p className="text-sm text-silver/60 leading-relaxed">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="py-24 px-6 border-t border-white/6">
+        <div className="max-w-3xl mx-auto">
+          <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] mb-14 text-center">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="w-8 h-px bg-amber/60" />
+              <span className="text-xs uppercase tracking-[0.28em] text-amber/80">Our Journey</span>
+              <div className="w-8 h-px bg-amber/60" />
+            </div>
+            <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] text-white tracking-wide">
+              From a conviction to a collection.
+            </h2>
+          </div>
+          <div className="relative">
+            <div className="absolute left-[72px] top-0 bottom-0 w-px bg-white/8" />
+            <div className="space-y-10">
+              {timeline.map(({ year, event }, i) => (
+                <div
+                  key={year}
+                  className={`reveal opacity-0 translate-y-6 transition-all duration-[900ms] flex items-start gap-8`}
+                  style={{ transitionDelay: `${i * 100}ms` }}
+                >
+                  <div className="w-18 shrink-0 text-right" style={{ width: 72 }}>
+                    <span className="font-serif text-lg text-amber">{year}</span>
+                  </div>
+                  <div className="relative pt-1.5">
+                    <div className="absolute -left-[33px] top-2 w-2 h-2 rounded-full bg-amber/60 ring-4 ring-bg" />
+                    <p className="text-silver/70 text-sm leading-relaxed">{event}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 px-6 border-t border-white/6">
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms]">
+            <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] text-white tracking-wide mb-6">
+              Ready to find your signature?
+            </h2>
+            <Button variant="amber" size="lg" className="tracking-widest uppercase text-xs group" asChild>
+              <Link to="/shop">
+                Explore the Collection
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}

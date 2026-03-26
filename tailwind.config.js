@@ -13,6 +13,7 @@ export default {
       colors: {
         bg: '#090b0f',
         'bg-elevated': '#11141d',
+        cream: '#f5f0e8',
         amber: {
           DEFAULT: '#df9550',
           glow: 'rgba(223,149,80,0.35)',
