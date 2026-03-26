@@ -183,3 +183,4 @@ export const products = [
 
 export const getFeatured = () => products.filter(p => p.featured)
 export const getById = (id) => products.find(p => p.id === id)
+export const getByCategory = (cat) => products.filter(p => p.category === cat)
