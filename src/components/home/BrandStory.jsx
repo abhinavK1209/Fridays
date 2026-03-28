@@ -110,7 +110,7 @@ export default function BrandStory() {
       {/* ── Brand Quote ── */}
       <section
         style={{
-          padding:    '160px 32px',
+          padding:    '100px 32px',
           borderTop:  '1px solid rgba(255,255,255,.05)',
           borderBottom:'1px solid rgba(255,255,255,.05)',
           textAlign:  'center',

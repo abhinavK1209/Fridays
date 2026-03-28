@@ -63,8 +63,8 @@ function FeaturedCard({ product, index }) {
       style={{
         transitionDelay:  `${index * 120}ms`,
         borderRadius:     '20px',
-        border:           '1px solid rgba(255,255,255,0.07)',
-        background:       'linear-gradient(145deg, rgba(14,16,24,0.97), rgba(8,10,16,0.99))',
+        border:           '1px solid rgba(255,255,255,0.13)',
+        background:       'linear-gradient(145deg, rgba(20,22,34,0.98), rgba(12,14,22,1))',
         transformStyle:   'preserve-3d',
         willChange:       'transform',
       }}
@@ -72,20 +72,20 @@ function FeaturedCard({ product, index }) {
       {/* Cursor-tracking glow layer */}
       <div
         className="card-glow"
-        data-glow-color={product.glowColor.replace('0.4', '0.12').replace('0.35', '0.1').replace('0.3', '0.1')}
+        data-glow-color={product.glowColor}
         style={{
           position:      'absolute',
           inset:         0,
-          background:    `radial-gradient(circle at 50% 40%, ${product.glowColor.replace('0.4', '0.08').replace('0.35', '0.06').replace('0.3', '0.06')} 0%, transparent 60%)`,
-          opacity:       0,
-          transition:    'opacity .5s',
+          background:    `radial-gradient(circle at 50% 30%, ${product.glowColor.replace(/[\d.]+\)$/, '0.18)')} 0%, transparent 65%)`,
+          opacity:       1,
+          transition:    'opacity .5s, background .1s',
           pointerEvents: 'none',
           borderRadius:  '20px',
         }}
         // Revealed on hover via group
       />
       <style>{`
-        .group:hover .card-glow { opacity: 1 !important; }
+        .group:hover .card-glow { opacity: 1 !important; filter: brightness(1.4); }
       `}</style>
 
       {/* Top accent line that lights up on hover */}
