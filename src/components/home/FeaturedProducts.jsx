@@ -30,11 +30,12 @@ function useTilt(strength = 10) {
     }
   }
 
-  const onMouseLeave = () => {
+  const onMouseLeave = (e) => {
     const el = ref.current
     if (!el) return
     el.style.transition = 'transform .6s cubic-bezier(0.16,1,0.3,1)'
     el.style.transform  = 'perspective(1200px) rotateX(0) rotateY(0) translateZ(0)'
+    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'
   }
 
   return { ref, onMouseMove, onMouseLeave }
@@ -70,7 +71,6 @@ function FeaturedCard({ product, index }) {
         transition:       'border-color .45s',
       }}
       onMouseEnter={e => { e.currentTarget.style.borderColor = `${product.accentColor}38` }}
-      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)' }}
     >
       {/* Cursor-tracking glow layer */}
       <div

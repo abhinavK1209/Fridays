@@ -284,56 +284,53 @@ export default function BrandStory() {
           <div style={{
             display:             'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap:                 '12px',
+            gap:                 '1px',
+            background:          'rgba(255,255,255,0.05)',
           }}>
-            {pillars.map(({ Icon, title, body, color, bg, delay }) => (
+            {pillars.map(({ Icon, title, body, color, delay }) => (
               <div
                 key={title}
                 data-hover
                 className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] group"
                 style={{
                   transitionDelay: `${delay}ms`,
-                  padding:         '28px 24px',
-                  borderRadius:    '12px',
-                  border:          '1px solid rgba(255,255,255,.07)',
-                  background:      'rgba(13,15,22,.8)',
-                  transition:      'border-color .4s, background .4s',
+                  padding:         '40px 32px',
+                  background:      '#090b0f',
+                  transition:      'background .4s',
+                  position:        'relative',
+                  overflow:        'hidden',
                 }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = color.replace('.9', '.3')
-                  e.currentTarget.style.background  = bg
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,.07)'
-                  e.currentTarget.style.background  = 'rgba(13,15,22,.8)'
-                }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(13,15,20,1)' }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#090b0f' }}
               >
+                {/* Top accent line */}
                 <div style={{
-                  width:          40,
-                  height:         40,
-                  borderRadius:   '10px',
-                  border:         `1px solid ${color.replace('.9', '.2')}`,
-                  background:     bg,
-                  display:        'flex',
-                  alignItems:     'center',
-                  justifyContent: 'center',
-                  marginBottom:   '20px',
-                  transition:     'background .4s',
-                }}>
-                  <Icon size={18} style={{ color }} />
-                </div>
+                  position:   'absolute',
+                  top:        0,
+                  left:       0,
+                  right:      0,
+                  height:     1,
+                  background: `linear-gradient(90deg, transparent, ${color}, transparent)`,
+                  opacity:    0,
+                  transition: 'opacity .4s',
+                }} className="group-hover:opacity-60" />
+
+                <Icon size={20} style={{ color, marginBottom: '24px', display: 'block', opacity: 0.8 }} />
+
                 <h3 style={{
-                  fontFamily:   "'Cormorant Garamond', Georgia, serif",
-                  fontSize:     '1.2rem',
-                  color:        '#ffffff',
-                  marginBottom: '10px',
+                  fontFamily:    "'Cormorant Garamond', Georgia, serif",
+                  fontSize:      '1.35rem',
+                  fontWeight:    400,
+                  color:         '#ffffff',
+                  letterSpacing: '0.03em',
+                  marginBottom:  '14px',
                 }}>
                   {title}
                 </h3>
                 <p style={{
                   fontSize:   '0.85rem',
-                  lineHeight: 1.7,
-                  color:      'rgba(199,203,214,.6)',
+                  lineHeight: 1.75,
+                  color:      'rgba(199,203,214,.55)',
                   fontFamily: "'Inter', sans-serif",
                 }}>
                   {body}

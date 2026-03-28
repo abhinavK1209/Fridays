@@ -55,26 +55,41 @@ export default function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-11" aria-label="Main navigation">
-            {navLinks.map(({ label, to }) => (
-              <Link
-                key={to}
-                to={to}
-                data-hover
-                style={{
-                  fontSize:       '0.68rem',
-                  letterSpacing:  '0.22em',
-                  textTransform:  'uppercase',
-                  textDecoration: 'none',
-                  color:          location.pathname === to ? '#df9550' : 'rgba(199,203,214,.65)',
-                  transition:     'color .3s',
-                  position:       'relative',
-                }}
-                onMouseEnter={e => e.currentTarget.style.color = '#df9550'}
-                onMouseLeave={e => e.currentTarget.style.color = location.pathname === to ? '#df9550' : 'rgba(199,203,214,.65)'}
-              >
-                {label}
-              </Link>
-            ))}
+            {navLinks.map(({ label, to }) => {
+              const isActive = location.pathname === to
+              return (
+                <Link
+                  key={to}
+                  to={to}
+                  data-hover
+                  style={{
+                    fontSize:       '0.68rem',
+                    letterSpacing:  '0.22em',
+                    textTransform:  'uppercase',
+                    textDecoration: 'none',
+                    color:          isActive ? '#df9550' : 'rgba(199,203,214,.65)',
+                    transition:     'color .3s',
+                    position:       'relative',
+                    paddingBottom:  '4px',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.color = '#df9550'}
+                  onMouseLeave={e => e.currentTarget.style.color = isActive ? '#df9550' : 'rgba(199,203,214,.65)'}
+                >
+                  {label}
+                  {isActive && (
+                    <span style={{
+                      position:   'absolute',
+                      bottom:     0,
+                      left:       0,
+                      right:      0,
+                      height:     1,
+                      background: 'linear-gradient(90deg, transparent, #df9550, transparent)',
+                      borderRadius: '1px',
+                    }} />
+                  )}
+                </Link>
+              )
+            })}
           </nav>
 
           {/* Right actions */}

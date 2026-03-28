@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ChevronDown } from 'lucide-react'
 import BottleIllustration from '@/components/common/BottleIllustration'
 import { products } from '@/data/products'
 
@@ -67,7 +67,14 @@ function useParallax(strength = 0.3) {
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const bottleRef = useParallax(-0.12) // bottle drifts up slower than scroll
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     // Short delay so the page has rendered before triggering scramble
@@ -104,6 +111,43 @@ export default function Hero() {
           `,
         }}
       />
+
+      {/* ── Floating orbs (21st.dev ElegantShape style) ── */}
+      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+        <div style={{
+          position:     'absolute',
+          width:        600,
+          height:       600,
+          borderRadius: '40% 60% 55% 45% / 45% 55% 60% 40%',
+          background:   'radial-gradient(circle, rgba(223,149,80,0.06) 0%, transparent 70%)',
+          top:          '-10%',
+          right:        '5%',
+          animation:    'orbFloat1 18s ease-in-out infinite',
+          filter:       'blur(40px)',
+        }} />
+        <div style={{
+          position:     'absolute',
+          width:        400,
+          height:       400,
+          borderRadius: '55% 45% 40% 60% / 60% 40% 55% 45%',
+          background:   'radial-gradient(circle, rgba(90,139,255,0.05) 0%, transparent 70%)',
+          bottom:       '10%',
+          left:         '8%',
+          animation:    'orbFloat2 22s ease-in-out infinite',
+          filter:       'blur(30px)',
+        }} />
+        <div style={{
+          position:     'absolute',
+          width:        300,
+          height:       300,
+          borderRadius: '50%',
+          background:   'radial-gradient(circle, rgba(150,80,220,0.04) 0%, transparent 70%)',
+          top:          '30%',
+          left:         '35%',
+          animation:    'orbFloat3 26s ease-in-out infinite',
+          filter:       'blur(24px)',
+        }} />
+      </div>
 
       {/* ── Subtle dot-grid overlay (Vercel-inspired) ── */}
       <div
@@ -227,7 +271,7 @@ export default function Hero() {
               lineHeight:   1.75,
               color:        'rgba(199,203,214,.65)',
               maxWidth:     '480px',
-              marginBottom: '44px',
+              marginBottom: '28px',
               opacity:      mounted ? 1 : 0,
               transform:    mounted ? 'none' : 'translateY(12px)',
               transition:   'opacity .9s ease 1.1s, transform .9s ease 1.1s',
@@ -316,8 +360,8 @@ export default function Hero() {
             style={{
               display:    'flex',
               gap:        '40px',
-              marginTop:  '56px',
-              paddingTop: '40px',
+              marginTop:  '36px',
+              paddingTop: '24px',
               borderTop:  '1px solid rgba(255,255,255,.06)',
               opacity:    mounted ? 1 : 0,
               transition: 'opacity 1s ease 1.6s',
@@ -353,68 +397,66 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ── Right: Bottle with glow ── */}
+        {/* ── Right: Bottle ── */}
         <div
           ref={bottleRef}
           style={{
-            position:        'relative',
-            display:         'flex',
-            justifyContent:  'center',
-            alignItems:      'center',
-            opacity:         mounted ? 1 : 0,
-            transform:       mounted ? 'none' : 'translateX(24px)',
-            transition:      'opacity 1.2s ease .6s, transform 1.2s ease .6s',
+            position:       'relative',
+            display:        'flex',
+            justifyContent: 'center',
+            alignItems:     'center',
+            opacity:        mounted ? 1 : 0,
+            transform:      mounted ? 'none' : 'translateX(24px)',
+            transition:     'opacity 1.2s ease .6s, transform 1.2s ease .6s',
           }}
         >
-          {/* Blue outer glow — matches preview exactly */}
           <div style={{
-            position:   'absolute',
-            width:       480,
-            height:      480,
-            borderRadius:'50%',
-            background:  'radial-gradient(circle, rgba(90,139,255,.35) 0%, transparent 65%)',
-            filter:      'blur(28px)',
-            animation:   'glowpulse 3s ease-in-out infinite',
+            position:     'absolute',
+            width:        480,
+            height:       480,
+            borderRadius: '50%',
+            background:   'radial-gradient(circle, rgba(90,139,255,.35) 0%, transparent 65%)',
+            filter:       'blur(28px)',
+            animation:    'glowpulse 3s ease-in-out infinite',
             pointerEvents:'none',
           }} />
-          {/* Amber inner glow */}
           <div style={{
-            position:   'absolute',
-            width:       260,
-            height:      260,
-            borderRadius:'50%',
-            background:  'radial-gradient(circle, rgba(223,149,80,.22) 0%, transparent 70%)',
-            filter:      'blur(12px)',
-            animation:   'glowpulse 3s ease-in-out infinite 1s',
+            position:     'absolute',
+            width:        260,
+            height:       260,
+            borderRadius: '50%',
+            background:   'radial-gradient(circle, rgba(223,149,80,.22) 0%, transparent 70%)',
+            filter:       'blur(12px)',
+            animation:    'glowpulse 3s ease-in-out infinite 1s',
             pointerEvents:'none',
           }} />
-
           <BottleIllustration
             gradient={hero.bottleGradient}
             glowColor={hero.glowColor}
             accentColor={hero.accentColor}
             label="Friday's"
             sublabel={hero.name}
-            size="xl"
+            size="xxl"
           />
         </div>
       </div>
       </div>{/* end content wrapper */}
 
-      {/* ── Scroll indicator — flex child pinned at section bottom ── */}
+      {/* ── Scroll indicator — absolutely pinned to section bottom ── */}
       <div
         style={{
-          position:      'relative',
+          position:      'absolute',
+          bottom:        '36px',
+          left:          '50%',
+          transform:     'translateX(-50%)',
           zIndex:        10,
-          flexShrink:    0,
           display:       'flex',
           flexDirection: 'column',
           alignItems:    'center',
           gap:           '12px',
-          paddingBottom: '36px',
-          paddingTop:    '16px',
-          opacity:       mounted ? 0.45 : 0,
-          transition:    'opacity 1s ease 2s',
+          opacity:       scrolled ? 0 : mounted ? 0.45 : 0,
+          transition:    scrolled ? 'opacity 0.4s ease' : 'opacity 1s ease 2s',
+          pointerEvents: 'none',
         }}
       >
         <span style={{
@@ -426,12 +468,14 @@ export default function Hero() {
         }}>
           Scroll
         </span>
-        <div style={{
-          width:      1,
-          height:     52,
-          background: 'linear-gradient(to bottom, rgba(223,149,80,.7), transparent)',
-          animation:  'scrollLine 2s ease-in-out infinite',
-        }} />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0, animation: 'scrollLine 1.2s ease-in-out infinite' }}>
+          <div style={{
+            width:      1,
+            height:     36,
+            background: 'linear-gradient(to bottom, rgba(223,149,80,.7), rgba(223,149,80,.6))',
+          }} />
+          <ChevronDown size={13} style={{ color: 'rgba(223,149,80,.7)', display: 'block', marginTop: '-3px' }} />
+        </div>
       </div>
     </section>
   )
