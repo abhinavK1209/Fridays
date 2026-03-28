@@ -3,10 +3,12 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import BottleIllustration from '@/components/common/BottleIllustration'
 import { useCart } from '@/context/CartContext'
+import { useToast } from '@/context/ToastContext'
 import { cn } from '@/lib/utils'
 
 export default function ProductCard({ product, onOpen }) {
   const { addToCart } = useCart()
+  const { addToast } = useToast()
   const [selectedSize, setSelectedSize] = useState(
     product.sizes.find(s => s.ml === product.defaultSize) || product.sizes[0]
   )
@@ -15,6 +17,7 @@ export default function ProductCard({ product, onOpen }) {
   const handleAdd = (e) => {
     e.stopPropagation()
     addToCart(product, selectedSize)
+    addToast(`${product.name} added to cart`)
     setAdded(true)
     setTimeout(() => setAdded(false), 1800)
   }

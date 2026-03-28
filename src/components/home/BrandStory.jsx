@@ -16,24 +16,24 @@ const pillars = [
     Icon: Sparkles,
     title: 'Rare Ingredients',
     body: 'Sourced from Grasse, oud regions, and beyond — every note is an authentic material, never a synthetic substitution.',
-    color: 'rgba(90,139,255,.9)',
-    bg:    'rgba(90,139,255,.06)',
+    color: 'rgba(223,149,80,.9)',
+    bg:    'rgba(223,149,80,.06)',
     delay: 120,
   },
   {
     Icon: Wind,
     title: 'Master Perfumers',
     body: 'Composed by perfumers who approach scent as architecture — layered, intentional, and built to leave an impression.',
-    color: 'rgba(150,80,220,.9)',
-    bg:    'rgba(150,80,220,.06)',
+    color: 'rgba(223,149,80,.9)',
+    bg:    'rgba(223,149,80,.06)',
     delay: 240,
   },
   {
     Icon: Leaf,
     title: 'Conscious Crafting',
     body: 'Cruelty-free formulation, recycled packaging, and a commitment to traceability across our entire supply chain.',
-    color: 'rgba(80,200,140,.9)',
-    bg:    'rgba(80,200,140,.06)',
+    color: 'rgba(223,149,80,.9)',
+    bg:    'rgba(223,149,80,.06)',
     delay: 360,
   },
 ]
@@ -159,7 +159,7 @@ export default function BrandStory() {
             marginBottom:  '32px',
           }}>
             "A scent is not a product.<br />
-            <em style={{ color: 'rgba(90,139,255,.9)', fontStyle: 'italic' }}>It's a signature.</em>"
+            <em style={{ color: 'rgba(223,149,80,.85)', fontStyle: 'italic' }}>It's a signature.</em>"
           </blockquote>
 
           <p style={{
@@ -242,9 +242,9 @@ export default function BrandStory() {
       {/* ── Reverse Marquee ── */}
       <div style={{
         padding:     '20px 0',
-        borderTop:   '1px solid rgba(90,139,255,.06)',
-        borderBottom:'1px solid rgba(90,139,255,.06)',
-        background:  'rgba(90,139,255,.02)',
+        borderTop:   '1px solid rgba(223,149,80,.06)',
+        borderBottom:'1px solid rgba(223,149,80,.06)',
+        background:  'rgba(223,149,80,.02)',
       }}>
         <Marquee
           items={['Noir Ember', 'Midnight Alloy', 'Dusk Meridian', 'Velvet Archive', 'Weekend Code', "Friday's Ritual"]}
@@ -284,56 +284,53 @@ export default function BrandStory() {
           <div style={{
             display:             'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap:                 '12px',
+            gap:                 '1px',
+            background:          'rgba(255,255,255,0.05)',
           }}>
-            {pillars.map(({ Icon, title, body, color, bg, delay }) => (
+            {pillars.map(({ Icon, title, body, color, delay }) => (
               <div
                 key={title}
                 data-hover
                 className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] group"
                 style={{
                   transitionDelay: `${delay}ms`,
-                  padding:         '28px 24px',
-                  borderRadius:    '12px',
-                  border:          '1px solid rgba(255,255,255,.07)',
-                  background:      'rgba(13,15,22,.8)',
-                  transition:      'border-color .4s, background .4s',
+                  padding:         '40px 32px',
+                  background:      '#090b0f',
+                  transition:      'background .4s',
+                  position:        'relative',
+                  overflow:        'hidden',
                 }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = color.replace('.9', '.3')
-                  e.currentTarget.style.background  = bg
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,.07)'
-                  e.currentTarget.style.background  = 'rgba(13,15,22,.8)'
-                }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(13,15,20,1)' }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#090b0f' }}
               >
+                {/* Top accent line */}
                 <div style={{
-                  width:          40,
-                  height:         40,
-                  borderRadius:   '10px',
-                  border:         `1px solid ${color.replace('.9', '.2')}`,
-                  background:     bg,
-                  display:        'flex',
-                  alignItems:     'center',
-                  justifyContent: 'center',
-                  marginBottom:   '20px',
-                  transition:     'background .4s',
-                }}>
-                  <Icon size={18} style={{ color }} />
-                </div>
+                  position:   'absolute',
+                  top:        0,
+                  left:       0,
+                  right:      0,
+                  height:     1,
+                  background: `linear-gradient(90deg, transparent, ${color}, transparent)`,
+                  opacity:    0,
+                  transition: 'opacity .4s',
+                }} className="group-hover:opacity-60" />
+
+                <Icon size={20} style={{ color, marginBottom: '24px', display: 'block', opacity: 0.8 }} />
+
                 <h3 style={{
-                  fontFamily:   "'Cormorant Garamond', Georgia, serif",
-                  fontSize:     '1.2rem',
-                  color:        '#ffffff',
-                  marginBottom: '10px',
+                  fontFamily:    "'Cormorant Garamond', Georgia, serif",
+                  fontSize:      '1.35rem',
+                  fontWeight:    400,
+                  color:         '#ffffff',
+                  letterSpacing: '0.03em',
+                  marginBottom:  '14px',
                 }}>
                   {title}
                 </h3>
                 <p style={{
                   fontSize:   '0.85rem',
-                  lineHeight: 1.7,
-                  color:      'rgba(199,203,214,.6)',
+                  lineHeight: 1.75,
+                  color:      'rgba(199,203,214,.55)',
                   fontFamily: "'Inter', sans-serif",
                 }}>
                   {body}

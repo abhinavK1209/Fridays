@@ -1,25 +1,24 @@
-/**
- * Marquee — infinite horizontal scroll strip.
- * Inspired by luxury brand sites (Byredo, Aesop, Diptyque style).
- * Pass children as repeated content; the component duplicates for seamless loop.
- */
+import { useRef, useState } from 'react'
+
 export default function Marquee({
   items = [],
-  speed = 40,         // seconds for one full loop
-  direction = 'left', // 'left' or 'right'
+  speed = 40,
+  direction = 'left',
   separator = '◆',
   className = '',
 }) {
+  const [paused, setPaused] = useState(false)
+
   const animStyle = {
     display:        'flex',
     gap:            '60px',
     width:          'max-content',
     animation:      `marqueeScroll ${speed}s linear infinite`,
     animationDirection: direction === 'right' ? 'reverse' : 'normal',
+    animationPlayState: paused ? 'paused' : 'running',
     willChange:     'transform',
   }
 
-  // Render items duplicated 3x for seamless wrap
   const rendered = [...items, ...items, ...items].map((item, i) => (
     <span
       key={i}
@@ -31,8 +30,9 @@ export default function Marquee({
         fontFamily:     "'Cormorant Garamond', Georgia, serif",
         fontStyle:      'italic',
         fontSize:       '1.05rem',
-        color:          'rgba(223,149,80,0.7)',
+        color:          paused ? 'rgba(223,149,80,0.9)' : 'rgba(223,149,80,0.7)',
         letterSpacing:  '0.05em',
+        transition:     'color 0.3s',
       }}
     >
       {item}
@@ -43,14 +43,11 @@ export default function Marquee({
   return (
     <div
       className={className}
-      style={{
-        overflow:   'hidden',
-        width:      '100%',
-        position:   'relative',
-      }}
+      style={{ overflow: 'hidden', width: '100%', position: 'relative' }}
       aria-hidden="true"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
     >
-      {/* Fade edges */}
       <div style={{
         position:   'absolute', inset: 0, zIndex: 2,
         background: 'linear-gradient(to right, #090b0f 0%, transparent 8%, transparent 92%, #090b0f 100%)',
