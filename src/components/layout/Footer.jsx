@@ -38,8 +38,21 @@ export default function Footer() {
   return (
     <footer
       className="border-t border-white/8 pt-16 pb-8"
-      style={{ background: 'rgba(5,7,10,0.95)' }}
+      style={{ background: 'rgba(5,7,10,0.95)', position: 'relative', overflow: 'hidden' }}
     >
+      {/* Ambient glow */}
+      <div aria-hidden="true" style={{
+        position:     'absolute',
+        width:        500,
+        height:       300,
+        borderRadius: '50%',
+        background:   'radial-gradient(circle, rgba(223,149,80,0.04) 0%, transparent 70%)',
+        bottom:       '-100px',
+        left:         '50%',
+        transform:    'translateX(-50%)',
+        pointerEvents:'none',
+        filter:       'blur(40px)',
+      }} />
       <div className="max-w-7xl mx-auto px-6">
         {/* Top grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
@@ -121,10 +134,14 @@ export default function Footer() {
             © {new Date().getFullYear()} Friday's Fragrance. All rights reserved.
           </p>
           <div className="flex gap-6">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map(item => (
-              <a key={item} href="#" className="text-xs text-muted/60 hover:text-muted transition-colors">
-                {item}
-              </a>
+            {[
+              { label: 'Privacy Policy',   to: '/privacy' },
+              { label: 'Terms of Service', to: '/terms' },
+              { label: 'Cookie Policy',    to: '/cookies' },
+            ].map(({ label, to }) => (
+              <Link key={label} to={to} className="text-xs text-muted/50 hover:text-white/70 transition-colors">
+                {label}
+              </Link>
             ))}
           </div>
         </div>

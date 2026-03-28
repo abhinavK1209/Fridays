@@ -12,27 +12,6 @@
     background: #090b0f;
     color: #f4f4f5;
     line-height: 1.6;
-    /* Hide default cursor globally — CustomCursor replaces it */
-    cursor: none !important;
-  }
-
-  /* All interactive elements also hide cursor */
-  a, button, input, select, textarea, [data-hover], [role="button"] {
-    cursor: none !important;
-  }
-
-  /* Cursor hover state (toggled via JS on interactive elements) */
-  html.cursor-hover #cursor-dot {
-    width: 6px !important;
-    height: 6px !important;
-  }
-  html.cursor-hover #cursor-ring {
-    width: 56px !important;
-    height: 56px !important;
-    border-color: rgba(223,149,80,.28) !important;
-  }
-  html.cursor-click #cursor-dot {
-    transform: translate(-50%, -50%) scale(0.5) !important;
   }
 }
 
@@ -82,10 +61,32 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Floating orbs (hero background) */
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33%       { transform: translate(30px, -40px) rotate(8deg); }
+  66%       { transform: translate(-20px, 20px) rotate(-5deg); }
+}
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33%       { transform: translate(-35px, 25px) rotate(-6deg); }
+  66%       { transform: translate(20px, -30px) rotate(4deg); }
+}
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0); }
+  50%       { transform: translate(15px, -20px); }
+}
+
+/* Scroll-to-top button */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* Scroll line animation */
 @keyframes scrollLine {
-  0%, 100% { opacity: .7; transform: scaleY(1); }
-  50%       { opacity: .2; transform: scaleY(.4); }
+  0%, 100% { opacity: .7; transform: translateY(0); }
+  50%       { opacity: .25; transform: translateY(6px); }
 }
 
 /* Shimmer (for skeleton loaders) */

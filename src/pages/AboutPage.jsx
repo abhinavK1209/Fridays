@@ -115,16 +115,30 @@ export default function AboutPage() {
               What we stand for.
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px" style={{ background: 'rgba(255,255,255,0.06)' }}>
             {values.map(({ num, title, body }, i) => (
               <div
                 key={num}
-                className={`reveal opacity-0 translate-y-6 transition-all duration-[900ms] p-7 rounded-2xl border border-white/8 hover:border-white/15 transition-colors duration-500`}
-                style={{ transitionDelay: `${i * 100}ms`, background: 'rgba(12,14,20,0.8)' }}
+                className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] group"
+                style={{
+                  transitionDelay: `${i * 100}ms`,
+                  padding: '40px 36px',
+                  background: '#090b0f',
+                  transition: 'background .4s',
+                  position: 'relative',
+                  overflow: 'hidden',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(13,15,20,1)' }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#090b0f' }}
               >
-                <span className="font-serif text-4xl text-white/10 block mb-4">{num}</span>
-                <h3 className="font-serif text-xl text-white mb-3">{title}</h3>
-                <p className="text-sm text-silver/60 leading-relaxed">{body}</p>
+                <div style={{
+                  position: 'absolute', top: 0, left: 0, right: 0, height: 1,
+                  background: 'linear-gradient(90deg, transparent, rgba(223,149,80,0.4), transparent)',
+                  opacity: 0, transition: 'opacity .4s',
+                }} className="group-hover:opacity-100" />
+                <span className="font-serif block mb-6" style={{ fontSize: '2.5rem', color: 'rgba(255,255,255,0.06)', lineHeight: 1 }}>{num}</span>
+                <h3 className="font-serif text-xl text-white mb-3" style={{ letterSpacing: '0.02em' }}>{title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'rgba(199,203,214,0.55)', fontFamily: "'Inter', sans-serif" }}>{body}</p>
               </div>
             ))}
           </div>
@@ -145,21 +159,32 @@ export default function AboutPage() {
             </h2>
           </div>
           <div className="relative">
-            <div className="absolute left-[72px] top-0 bottom-0 w-px bg-white/8" />
+            {/* Vertical line — sits at center of dot column */}
+            <div className="absolute top-0 bottom-0 w-px bg-amber/15" style={{ left: 88 }} />
             <div className="space-y-10">
               {timeline.map(({ year, event }, i) => (
                 <div
                   key={year}
-                  className={`reveal opacity-0 translate-y-6 transition-all duration-[900ms] flex items-start gap-8`}
+                  className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] flex items-center gap-0"
                   style={{ transitionDelay: `${i * 100}ms` }}
                 >
-                  <div className="w-18 shrink-0 text-right" style={{ width: 72 }}>
-                    <span className="font-serif text-lg text-amber">{year}</span>
+                  {/* Year */}
+                  <div className="shrink-0 text-right pr-5" style={{ width: 80 }}>
+                    <span className="font-serif text-base text-amber/80">{year}</span>
                   </div>
-                  <div className="relative pt-1.5">
-                    <div className="absolute -left-[33px] top-2 w-2 h-2 rounded-full bg-amber/60 ring-4 ring-bg" />
-                    <p className="text-silver/70 text-sm leading-relaxed">{event}</p>
+
+                  {/* Dot — centered on the line at left:88 */}
+                  <div className="shrink-0 w-[17px] flex justify-center" style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{
+                      width: 7, height: 7,
+                      borderRadius: '50%',
+                      background: 'rgba(223,149,80,0.9)',
+                      boxShadow: '0 0 8px rgba(223,149,80,0.4)',
+                    }} />
                   </div>
+
+                  {/* Event */}
+                  <p className="text-silver/65 text-sm leading-relaxed pl-5">{event}</p>
                 </div>
               ))}
             </div>

@@ -307,7 +307,7 @@ function PaymentForm({ shippingInfo, cartSubtotal, items, onConfirm, onBack }) {
 }
 
 function Confirmation({ shippingInfo }) {
-  const orderId = `FRI-${Date.now().toString(36).toUpperCase()}`
+  const [orderId] = useState(() => `FRI-${Date.now().toString(36).toUpperCase()}`)
 
   return (
     <div className="text-center py-8">

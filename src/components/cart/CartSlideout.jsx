@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { X, Trash2, ShoppingBag } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useCart } from '@/context/CartContext'
-import { cn } from '@/lib/utils'
 
 function CartItem({ item, onRemove, onUpdateQty }) {
   const fmt = (n) =>
@@ -100,28 +100,34 @@ export default function CartSlideout() {
   }, [isOpen])
 
   return (
-    <>
-      {/* Backdrop */}
-      <div
-        className={cn(
-          'fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm transition-opacity duration-300',
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        )}
-        onClick={closeCart}
-        aria-hidden="true"
-      />
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm"
+            onClick={closeCart}
+            aria-hidden="true"
+          />
 
-      {/* Drawer */}
-      <aside
-        className={cn(
-          'fixed top-0 right-0 h-full z-[56] w-full sm:w-[420px] flex flex-col border-l border-white/8 transition-transform duration-300 ease-out',
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        )}
-        style={{ background: 'linear-gradient(160deg, #0c0e16, #090b10)' }}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Shopping cart"
-      >
+          {/* Drawer */}
+          <motion.aside
+            key="drawer"
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 32, stiffness: 300 }}
+            className="fixed top-0 right-0 h-full z-[56] w-full sm:w-[420px] flex flex-col border-l border-white/8"
+            style={{ background: 'linear-gradient(160deg, #0c0e16, #090b10)' }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Shopping cart"
+          >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-white/8">
           <div className="flex items-center gap-2.5">
@@ -153,14 +159,23 @@ export default function CartSlideout() {
             </div>
           ) : (
             <div>
-              {items.map(item => (
-                <CartItem
-                  key={item.key}
-                  item={item}
-                  onRemove={removeFromCart}
-                  onUpdateQty={updateQty}
-                />
-              ))}
+              <AnimatePresence initial={false}>
+                {items.map((item, i) => (
+                  <motion.div
+                    key={item.key}
+                    initial={{ opacity: 0, x: 24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 24, height: 0 }}
+                    transition={{ duration: 0.25, delay: i * 0.04 }}
+                  >
+                    <CartItem
+                      item={item}
+                      onRemove={removeFromCart}
+                      onUpdateQty={updateQty}
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
           )}
         </div>
@@ -168,12 +183,30 @@ export default function CartSlideout() {
         {/* Footer */}
         {items.length > 0 && (
           <div className="border-t border-white/8 px-6 py-6">
+            {/* Free shipping progress */}
+            {cartSubtotal < 100 && (
+              <div className="mb-5">
+                <div className="flex justify-between text-xs text-muted/50 mb-2">
+                  <span>Free shipping at $100</span>
+                  <span>{fmt(100 - cartSubtotal)} away</span>
+                </div>
+                <div className="h-1 rounded-full bg-white/8 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-amber transition-all duration-500"
+                    style={{ width: `${Math.min((cartSubtotal / 100) * 100, 100)}%` }}
+                  />
+                </div>
+              </div>
+            )}
+            {cartSubtotal >= 100 && (
+              <p className="text-xs text-amber/70 mb-5 text-center">✓ You've unlocked free shipping</p>
+            )}
             {/* Subtotal */}
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm text-muted/70">Subtotal</span>
               <span className="font-serif text-lg text-white">{fmt(cartSubtotal)}</span>
             </div>
-            <p className="text-xs text-muted/40 mb-5">Shipping & taxes calculated at checkout</p>
+            <p className="text-xs text-muted/40 mb-5">Taxes calculated at checkout</p>
 
             <Button
               variant="amber"
@@ -193,7 +226,9 @@ export default function CartSlideout() {
             </button>
           </div>
         )}
-      </aside>
-    </>
+          </motion.aside>
+        </>
+      )}
+    </AnimatePresence>
   )
 }
