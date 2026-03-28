@@ -1,18 +1,16 @@
 export const products = [
   {
-    id: 'noir-ember',
-    name: 'Noir Ember',
+    id: 'aelia',
+    name: 'Aelia',
     tagline: 'The scent of ambition after dark.',
     description: 'An electrifying composition that opens with luminous clarity, deepens into smoky seduction, and settles into a warm, magnetic trail.',
     longDescription:
-      "Noir Ember is the cornerstone of the Friday's collection — a bold olfactory statement designed for the moment when day transitions to night. The opening is bright and electric, charged with bergamot and black pepper. As the fragrance evolves, a heart of lavender absolute and saffron emerges — complex, magnetic, and undeniably sophisticated. The trail settles into an enduring foundation of amber resin and cedarwood musk, leaving a lasting impression that commands attention. High-concentration oil formula ensures projection for 12+ hours.",
+      "Aelia is the cornerstone of the Friday's collection — a bold olfactory statement designed for the moment when day transitions to night. The opening is bright and electric, charged with bergamot and black pepper. As the fragrance evolves, a heart of lavender absolute and saffron emerges — complex, magnetic, and undeniably sophisticated. The trail settles into an enduring foundation of amber resin and cedarwood musk, leaving a lasting impression that commands attention. High-concentration oil formula ensures projection for 12+ hours.",
     category: 'Eau de Parfum',
     sizes: [
-      { ml: 30, price: 72, label: '30 ml' },
-      { ml: 50, price: 108, label: '50 ml' },
-      { ml: 100, price: 148, label: '100 ml' },
+      { ml: 50, price: 30, label: '50 ml' },
     ],
-    defaultSize: 100,
+    defaultSize: 50,
     scentNotes: {
       top: ['Bergamot', 'Black Pepper', 'Iced Mandarin'],
       heart: ['Lavender Absolute', 'Saffron', 'Violet Leaf'],
@@ -32,16 +30,15 @@ export const products = [
     featured: true,
   },
   {
-    id: 'midnight-alloy',
-    name: 'Midnight Alloy',
+    id: 'azura',
+    name: 'Azura',
     tagline: 'Industrial edge. Velvet finish.',
     description: 'A chrome-cool concentration of neroli, smoked incense, and polished woods. Engineered, not blended.',
     longDescription:
-      'Midnight Alloy strips fragrance down to its architectural bones. Named for the precision of metallurgy, this extrait de parfum opens with a cold, clean neroli accord before revealing a smoky incense heart that is both meditative and arresting. The base is a study in contrasts — gleaming sandalwood against raw vetiver — creating a scent that feels engineered rather than blended. Wear it when you need to be unmistakable.',
+      'Azura strips fragrance down to its architectural bones. This extrait de parfum opens with a cold, clean neroli accord before revealing a smoky incense heart that is both meditative and arresting. The base is a study in contrasts — gleaming sandalwood against raw vetiver — creating a scent that feels engineered rather than blended. Wear it when you need to be unmistakable.',
     category: 'Extrait de Parfum',
     sizes: [
-      { ml: 30, price: 88, label: '30 ml' },
-      { ml: 50, price: 128, label: '50 ml' },
+      { ml: 50, price: 30, label: '50 ml' },
     ],
     defaultSize: 50,
     scentNotes: {
@@ -62,18 +59,17 @@ export const products = [
     featured: true,
   },
   {
-    id: 'dusk-meridian',
-    name: 'Dusk Meridian',
+    id: 'kayaan',
+    name: 'Kayaan',
     tagline: 'The warmth between day and dark.',
     description: 'Golden hour captured in amber, rose oxide, and sun-warmed oud. Radiant, lush, enduring.',
     longDescription:
-      'Dusk Meridian is an ode to that fleeting moment when the sky bleeds amber and the air carries warmth but no heat. Rose oxide and aldehydes create an opening that is radiant and slightly abstract — neither floral nor not. The heart is lush with Damascene rose absolute and a whisper of precious oud that elevates rather than dominates. The base of amber, labdanum, and vanilla musk anchors the fragrance with an enveloping warmth that lasts until morning.',
+      'Kayaan is an ode to that fleeting moment when the sky bleeds amber and the air carries warmth but no heat. Rose oxide and aldehydes create an opening that is radiant and slightly abstract — neither floral nor not. The heart is lush with Damascene rose absolute and a whisper of precious oud that elevates rather than dominates. The base of amber, labdanum, and vanilla musk anchors the fragrance with an enveloping warmth that lasts until morning.',
     category: 'Eau de Parfum',
     sizes: [
-      { ml: 50, price: 115, label: '50 ml' },
-      { ml: 100, price: 165, label: '100 ml' },
+      { ml: 50, price: 30, label: '50 ml' },
     ],
-    defaultSize: 100,
+    defaultSize: 50,
     scentNotes: {
       top: ['Rose Oxide', 'Aldehydes', 'Pink Peppercorn'],
       heart: ['Damascene Rose Absolute', 'Oud', 'Iris'],
@@ -92,16 +88,15 @@ export const products = [
     featured: true,
   },
   {
-    id: 'velvet-archive',
-    name: 'Velvet Archive',
+    id: 'dreams',
+    name: 'Dreams',
     tagline: 'Memory bottled. Darkness preserved.',
     description: 'A library of rare absolutes — leather, iris, tonka, and old smoke. Deep, literary, unforgettable.',
     longDescription:
-      "Velvet Archive is an olfactory document of richness and restraint. Inspired by the atmosphere of a rare book library — leather bindings, aged paper, candlewax — this fragrance opens with a cool iris absolute before unfolding into a warm leather heart dusted with orris and heliotrope. The base is deep and lasting: tonka bean, birch, and a touch of castoreum absolute, rounded by a faint whisper of woodsmoke. An introvert's fragrance for people who make a lasting impression.",
+      "Dreams is an olfactory document of richness and restraint. Inspired by late nights and quiet moments, this fragrance opens with a cool iris absolute before unfolding into a warm leather heart dusted with orris and heliotrope. The base is deep and lasting: tonka bean, birch, and a touch of castoreum absolute, rounded by a faint whisper of woodsmoke. A fragrance for those who leave a lasting impression.",
     category: 'Extrait de Parfum',
     sizes: [
-      { ml: 30, price: 95, label: '30 ml' },
-      { ml: 50, price: 138, label: '50 ml' },
+      { ml: 50, price: 30, label: '50 ml' },
     ],
     defaultSize: 50,
     scentNotes: {
@@ -122,17 +117,17 @@ export const products = [
     featured: false,
   },
   {
-    id: 'weekend-code',
-    name: 'Weekend Code',
+    id: 'loruun',
+    name: 'Loruun',
     tagline: 'Off-duty elegance. Anywhere.',
-    description: 'A travel-ready concentrate of sea salt, cedar, and Sicilian lime. Clean, confident, effortless.',
+    description: 'A fresh concentrate of sea salt, cedar, and Sicilian lime. Clean, confident, effortless.',
     longDescription:
-      'Weekend Code was built for movement. A compact 30ml concentrate designed to travel with you — to rooftop parties, weekend escapes, and everything in between. The opening is sparkling and fresh: Sicilian lime, sea salt accord, and a whisper of cucumber. The heart is airy and clean, a light cedar and ambergris combination that feels completely effortless. The dry-down is warm skin musk — the scent of your best self after sun.',
-    category: 'Travel Concentration',
+      'Loruun was built for movement. A concentrate designed to travel with you — to rooftop parties, weekend escapes, and everything in between. The opening is sparkling and fresh: Sicilian lime, sea salt accord, and a whisper of cucumber. The heart is airy and clean, a light cedar and ambergris combination that feels completely effortless. The dry-down is warm skin musk — the scent of your best self.',
+    category: 'Eau de Parfum',
     sizes: [
-      { ml: 30, price: 72, label: '30 ml' },
+      { ml: 50, price: 30, label: '50 ml' },
     ],
-    defaultSize: 30,
+    defaultSize: 50,
     scentNotes: {
       top: ['Sicilian Lime', 'Sea Salt Accord', 'Cucumber'],
       heart: ['Light Cedar', 'Ambergris', 'White Tea'],
@@ -141,42 +136,42 @@ export const products = [
     ingredients:
       'Alcohol Denat., Parfum (Fragrance), Aqua (Water), Limonene, Linalool, Citral, Geraniol, Benzyl Benzoate, Citronellol, Farnesol, Benzyl Alcohol, Coumarin.',
     reviews: [
-      { author: 'Priya N.', rating: 4, text: 'Perfect summer fragrance. Light, fresh, surprisingly long-lasting for a travel size.', date: 'Mar 2025' },
-      { author: 'Tyler R.', rating: 5, text: 'Bought this for a trip to Miami. Wore it every single day. Already ordered a second one.', date: 'Feb 2025' },
+      { author: 'Priya N.', rating: 4, text: 'Perfect summer fragrance. Light, fresh, surprisingly long-lasting.', date: 'Mar 2025' },
+      { author: 'Tyler R.', rating: 5, text: 'Wore it every single day on a trip. Already ordered a second one.', date: 'Feb 2025' },
     ],
     bottleGradient: 'linear-gradient(160deg, #051810 0%, #0e3a22 30%, #1a6040 55%, #104828 80%, #082010 100%)',
     glowColor: 'rgba(40,200,120,0.7)',
     accentColor: '#28c878',
-    badge: 'Travel Size',
+    badge: null,
     featured: false,
   },
   {
-    id: 'fridays-ritual',
-    name: "Friday's Ritual",
+    id: 'liara',
+    name: 'Liara',
     tagline: 'The complete sensory experience.',
-    description: 'A curated body and scent layering kit — shower gel, body oil, and 50ml EDP. Presented in signature black box.',
+    description: 'Soft florals meet warm musk in a fragrance that feels like sunlight through silk.',
     longDescription:
-      "Friday's Ritual is the ultimate layering system. Start with the Noir Ember-infused shower gel, follow with the luxurious body oil that prolongs projection and softens skin, then apply the included 50ml Eau de Parfum. Each product is formulated to work in concert, creating a scent presence that is exponentially richer than any single product alone. Presented in a signature matte black box with magnetic closure and satin ribbon pull. The definitive Friday's experience.",
-    category: 'Ritual Set',
+      "Liara is a celebration of quiet elegance. Opening with a burst of white peach and jasmine petals, it softens into a heart of rose absolute and warm sandalwood. The base of vanilla musk and cedarwood creates a deeply comforting, skin-close warmth that lingers for hours. Delicate yet unforgettable — Liara is the scent you reach for when you want to feel like yourself.",
+    category: 'Eau de Parfum',
     sizes: [
-      { ml: 0, price: 96, label: 'Full Set' },
+      { ml: 50, price: 30, label: '50 ml' },
     ],
-    defaultSize: 0,
+    defaultSize: 50,
     scentNotes: {
-      top: ['Bergamot', 'Black Pepper', 'Iced Mandarin'],
-      heart: ['Lavender Absolute', 'Saffron', 'Violet Leaf'],
-      base: ['Amber Resin', 'Vetiver Smoke', 'Cedarwood Musk'],
+      top: ['White Peach', 'Jasmine Petals', 'Bergamot'],
+      heart: ['Rose Absolute', 'Sandalwood', 'Muguet'],
+      base: ['Vanilla Musk', 'Cedarwood', 'White Amber'],
     },
     ingredients:
-      "Includes: Noir Ember 50ml EDP, Noir Ember Shower Gel 200ml, Noir Ember Body Oil 100ml. See individual products for full ingredient lists.",
+      'Alcohol Denat., Parfum (Fragrance), Aqua (Water), Benzyl Benzoate, Linalool, Limonene, Coumarin, Citronellol, Geraniol, Eugenol, Benzyl Salicylate, Farnesol.',
     reviews: [
-      { author: 'Emma C.', rating: 5, text: 'The perfect gift. Or the perfect self-treat. The layering actually works — the scent lasts twice as long.', date: 'Jan 2025' },
-      { author: 'Felix A.', rating: 5, text: "The body oil alone is worth the price. But together? This is how fragrance should be done.", date: 'Feb 2025' },
+      { author: 'Emma C.', rating: 5, text: 'Smells like a dream. Soft, warm, and incredibly long-lasting. My new everyday scent.', date: 'Jan 2025' },
+      { author: 'Felix A.', rating: 5, text: "Bought this for my girlfriend and she hasn't put it down since. Absolutely stunning.", date: 'Feb 2025' },
     ],
     bottleGradient: 'linear-gradient(160deg, #281808 0%, #6a3c10 30%, #a86020 55%, #7a4818 80%, #3a2208 100%)',
     glowColor: 'rgba(220,160,60,0.75)',
     accentColor: '#dca03c',
-    badge: 'Kit',
+    badge: null,
     featured: false,
   },
 ]

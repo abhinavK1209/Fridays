@@ -30,11 +30,9 @@ const values = [
 ]
 
 const timeline = [
-  { year: '2021', event: 'Founded in Miami with a single fragrance and a conviction.' },
-  { year: '2022', event: 'Noir Ember launched. Sold out in 72 hours.' },
-  { year: '2023', event: 'Expanded to six fragrances. Collaboration with master perfumer in Grasse.' },
-  { year: '2024', event: 'Friday\'s Ritual set introduced. Carbon-neutral certification achieved.' },
-  { year: '2025', event: 'Moving to Miami. The next chapter begins.' },
+  { year: '2023', event: 'Founded in Charlotte, NC by a group of high schoolers with a single fragrance and a conviction.' },
+  { year: '2024', event: 'Expanded to six fragrances — Aelia, Azura, Kayaan, Dreams, Loruun, and Liara. Four figures and growing.' },
+  { year: '2025', event: 'Building something bigger. The next chapter begins.' },
 ]
 
 export default function AboutPage() {
@@ -66,9 +64,9 @@ export default function AboutPage() {
               of the week.
             </h1>
             <p className="text-silver/65 text-base leading-loose max-w-md">
-              Friday's is a luxury fragrance house founded on a simple idea: the transition from responsibility
-              to freedom deserves its own scent. We build fragrances for ambitious people — those who
-              live fully during the week and even more fully on the weekend.
+              Friday's is a fragrance brand born in Charlotte, NC — founded by high schoolers who believed
+              that great scent shouldn't cost a fortune. We build fragrances for anyone who wants to
+              leave an impression, at a price that doesn't require a second thought.
             </p>
           </div>
           <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] delay-200 flex justify-center lg:justify-end">
@@ -77,7 +75,7 @@ export default function AboutPage() {
               glowColor={products[0].glowColor}
               accentColor={products[0].accentColor}
               label="Friday's"
-              sublabel="Noir Ember"
+              sublabel="Aelia"
               size="lg"
             />
           </div>

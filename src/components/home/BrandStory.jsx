@@ -247,7 +247,7 @@ export default function BrandStory() {
         background:  'rgba(223,149,80,.02)',
       }}>
         <Marquee
-          items={['Noir Ember', 'Midnight Alloy', 'Dusk Meridian', 'Velvet Archive', 'Weekend Code', "Friday's Ritual"]}
+          items={['Aelia', 'Azura', 'Kayaan', 'Dreams', 'Loruun', 'Liara']}
           speed={28}
           direction="right"
           separator="·"
