@@ -69,18 +69,20 @@ export default function Hero() {
   const [mounted, setMounted] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [heroIdx, setHeroIdx] = useState(0)
-  const [imgVisible, setImgVisible] = useState(true)
+  const [prevIdx, setPrevIdx] = useState(null)
+  const [animating, setAnimating] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setImgVisible(false)
-      setTimeout(() => {
-        setHeroIdx(i => (i + 1) % heroProducts.length)
-        setImgVisible(true)
-      }, 400)
-    }, 2000)
+      const next = (heroIdx + 1) % heroProducts.length
+      setPrevIdx(heroIdx)
+      setHeroIdx(next)
+      setAnimating(false)
+      requestAnimationFrame(() => requestAnimationFrame(() => setAnimating(true)))
+      setTimeout(() => { setPrevIdx(null); setAnimating(false) }, 600)
+    }, 5000)
     return () => clearInterval(interval)
-  }, [])
+  }, [heroIdx])
   const bottleRef = useParallax(-0.12) // bottle drifts up slower than scroll
 
   useEffect(() => {
@@ -448,17 +450,44 @@ export default function Hero() {
             animation:    'glowpulse 3s ease-in-out infinite 1s',
             pointerEvents:'none',
           }} />
-          <div style={{ transition: 'opacity 0.4s ease', opacity: imgVisible ? 1 : 0 }}>
-            <BottleImage
-              image={heroProducts[heroIdx].image}
-              alt={heroProducts[heroIdx].name}
-              gradient={heroProducts[heroIdx].bottleGradient}
-              glowColor={heroProducts[heroIdx].glowColor}
-              accentColor={heroProducts[heroIdx].accentColor}
-              label="Friday's"
-              sublabel={heroProducts[heroIdx].name}
-              size="xl"
-            />
+          <div style={{ position: 'relative', overflow: 'hidden' }}>
+            {prevIdx !== null && (
+              <div style={{
+                position:   'absolute',
+                inset:      0,
+                display:    'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transform:  animating ? 'translateX(-110%)' : 'translateX(0)',
+                transition: animating ? 'transform 0.5s cubic-bezier(0.4,0,0.2,1)' : 'none',
+              }}>
+                <BottleImage
+                  image={heroProducts[prevIdx].image}
+                  alt={heroProducts[prevIdx].name}
+                  gradient={heroProducts[prevIdx].bottleGradient}
+                  glowColor={heroProducts[prevIdx].glowColor}
+                  accentColor={heroProducts[prevIdx].accentColor}
+                  label="Friday's"
+                  sublabel={heroProducts[prevIdx].name}
+                  size="xl"
+                />
+              </div>
+            )}
+            <div style={{
+              transform:  animating ? 'translateX(0)' : (prevIdx !== null ? 'translateX(110%)' : 'translateX(0)'),
+              transition: animating ? 'transform 0.5s cubic-bezier(0.4,0,0.2,1)' : 'none',
+            }}>
+              <BottleImage
+                image={heroProducts[heroIdx].image}
+                alt={heroProducts[heroIdx].name}
+                gradient={heroProducts[heroIdx].bottleGradient}
+                glowColor={heroProducts[heroIdx].glowColor}
+                accentColor={heroProducts[heroIdx].accentColor}
+                label="Friday's"
+                sublabel={heroProducts[heroIdx].name}
+                size="xl"
+              />
+            </div>
           </div>
         </div>
       </div>
