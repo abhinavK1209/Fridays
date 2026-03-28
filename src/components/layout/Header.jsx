@@ -5,7 +5,7 @@ import { useCart } from '@/context/CartContext'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
-  { label: 'Shop', to: '/shop' },
+  { label: 'Collection', to: '/shop' },
   { label: 'Story', to: '/about' },
 ]
 
@@ -39,23 +39,37 @@ export default function Header() {
           {/* Logo */}
           <Link
             to="/"
-            className="font-serif text-2xl tracking-widest text-white hover:text-amber transition-colors duration-300"
+            style={{
+              fontFamily:    "'Cormorant Garamond', Georgia, serif",
+              fontSize:      '1.7rem',
+              fontWeight:    300,
+              letterSpacing: '0.45em',
+              color:         '#df9550',
+              textTransform: 'uppercase',
+              textDecoration:'none',
+            }}
           >
             Friday's
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-10" aria-label="Main navigation">
+          <nav className="hidden md:flex items-center gap-11" aria-label="Main navigation">
             {navLinks.map(({ label, to }) => (
               <Link
                 key={to}
                 to={to}
-                className={cn(
-                  'text-sm tracking-widest uppercase transition-colors duration-300',
-                  location.pathname === to
-                    ? 'text-white'
-                    : 'text-silver/70 hover:text-white',
-                )}
+                data-hover
+                style={{
+                  fontSize:       '0.68rem',
+                  letterSpacing:  '0.22em',
+                  textTransform:  'uppercase',
+                  textDecoration: 'none',
+                  color:          location.pathname === to ? '#df9550' : 'rgba(199,203,214,.65)',
+                  transition:     'color .3s',
+                  position:       'relative',
+                }}
+                onMouseEnter={e => e.currentTarget.style.color = '#df9550'}
+                onMouseLeave={e => e.currentTarget.style.color = location.pathname === to ? '#df9550' : 'rgba(199,203,214,.65)'}
               >
                 {label}
               </Link>
@@ -64,11 +78,42 @@ export default function Header() {
 
           {/* Right actions */}
           <div className="flex items-center gap-4">
-            {/* Cart button */}
+            {/* Shop Now button — matches preview */}
+            <Link
+              to="/shop"
+              data-hover
+              className="hidden md:inline-flex items-center"
+              style={{
+                fontSize:      '0.65rem',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color:         '#090b0f',
+                background:    '#df9550',
+                padding:       '11px 26px',
+                fontWeight:    500,
+                textDecoration:'none',
+                transition:    'background .3s, box-shadow .3s, transform .2s',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background   = '#f0ebe0'
+                e.currentTarget.style.transform    = 'translateY(-2px)'
+                e.currentTarget.style.boxShadow    = '0 8px 28px rgba(223,149,80,.3)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background   = '#df9550'
+                e.currentTarget.style.transform    = 'none'
+                e.currentTarget.style.boxShadow    = 'none'
+              }}
+            >
+              Shop Now
+            </Link>
+
+            {/* Cart icon */}
             <button
               onClick={openCart}
               aria-label={`Open cart (${cartCount} items)`}
-              className="relative p-2 text-silver hover:text-white transition-colors duration-300 group"
+              className="relative p-2 text-silver hover:text-white transition-colors duration-300"
+              style={{ color: 'rgba(199,203,214,.7)' }}
             >
               <ShoppingBag className="w-5 h-5" />
               {cartCount > 0 && (
