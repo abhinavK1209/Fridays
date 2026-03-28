@@ -139,7 +139,6 @@ export default function Hero() {
           display:        'flex',
           alignItems:     'center',
           paddingTop:     '80px',
-          overflow:       'hidden',
           position:       'relative',
           zIndex:         10,
         }}
