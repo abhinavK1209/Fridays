@@ -3,43 +3,108 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    box-sizing: border-box;
-  }
+  *, *::before, *::after { box-sizing: border-box; }
 
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     margin: 0;
     background: #090b0f;
     color: #f4f4f5;
     line-height: 1.6;
+    /* Hide default cursor globally — CustomCursor replaces it */
+    cursor: none !important;
+  }
+
+  /* All interactive elements also hide cursor */
+  a, button, input, select, textarea, [data-hover], [role="button"] {
+    cursor: none !important;
+  }
+
+  /* Cursor hover state (toggled via JS on interactive elements) */
+  html.cursor-hover #cursor-dot {
+    width: 6px !important;
+    height: 6px !important;
+  }
+  html.cursor-hover #cursor-ring {
+    width: 56px !important;
+    height: 56px !important;
+    border-color: rgba(223,149,80,.28) !important;
+  }
+  html.cursor-click #cursor-dot {
+    transform: translate(-50%, -50%) scale(0.5) !important;
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 
-  /* Hide scrollbar but keep scroll functionality */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
 
-  /* Page transition */
+  /* Page fade-in on route change */
   .page-enter {
-    animation: pageEnter 0.4s ease forwards;
+    animation: pageEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 }
 
+/* ── Keyframes ─────────────────────────────────────────────────────────────── */
+
 @keyframes pageEnter {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Marquee horizontal scroll */
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+
+/* Bottle floating */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-18px); }
+}
+
+/* Glow pulse */
+@keyframes glowpulse {
+  0%, 100% { opacity: 0.45; }
+  50%       { opacity: 0.9; }
+}
+
+/* Fade up for hero copy */
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll line animation */
+@keyframes scrollLine {
+  0%, 100% { opacity: .7; transform: scaleY(1); }
+  50%       { opacity: .2; transform: scaleY(.4); }
+}
+
+/* Shimmer (for skeleton loaders) */
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position:  400px 0; }
+}
+
+/* ── Grain / noise texture overlay ──────────────────────────────────────────
+   Applied as a fixed pseudo-element on body for subtle film-grain feel
+   (inspired by luxury fragrance brand sites) */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.07'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.4;
 }

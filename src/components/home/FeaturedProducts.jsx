@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
@@ -7,10 +7,45 @@ import BottleIllustration from '@/components/common/BottleIllustration'
 import { getFeatured } from '@/data/products'
 import { useCart } from '@/context/CartContext'
 
+// ── 3D Tilt Hook ─────────────────────────────────────────────────────────────
+function useTilt(strength = 10) {
+  const ref = useRef(null)
+
+  const onMouseMove = e => {
+    const el   = ref.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const x    = e.clientX - rect.left
+    const y    = e.clientY - rect.top
+    const cx   = rect.width  / 2
+    const cy   = rect.height / 2
+    const rotX = ((y - cy) / cy) * -strength
+    const rotY = ((x - cx) / cx) *  strength
+    el.style.transform  = `perspective(1200px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(6px)`
+    el.style.transition = 'transform 0.05s linear'
+    // Move the glow to follow cursor
+    const glowEl = el.querySelector('.card-glow')
+    if (glowEl) {
+      glowEl.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, ${glowEl.dataset.glowColor} 0%, transparent 60%)`
+    }
+  }
+
+  const onMouseLeave = () => {
+    const el = ref.current
+    if (!el) return
+    el.style.transition = 'transform .6s cubic-bezier(0.16,1,0.3,1)'
+    el.style.transform  = 'perspective(1200px) rotateX(0) rotateY(0) translateZ(0)'
+  }
+
+  return { ref, onMouseMove, onMouseLeave }
+}
+
+// ── Featured Card ─────────────────────────────────────────────────────────────
 function FeaturedCard({ product, index }) {
   const { addToCart } = useCart()
-  const defaultSize = product.sizes.find(s => s.ml === product.defaultSize) || product.sizes[0]
+  const defaultSize   = product.sizes.find(s => s.ml === product.defaultSize) || product.sizes[0]
   const [added, setAdded] = useState(false)
+  const { ref, onMouseMove, onMouseLeave } = useTilt(8)
 
   const handleAdd = () => {
     addToCart(product, defaultSize)
@@ -20,92 +55,299 @@ function FeaturedCard({ product, index }) {
 
   return (
     <div
-      className={`reveal opacity-0 translate-y-6 transition-all duration-[900ms] group relative rounded-3xl border border-white/8 overflow-hidden`}
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      data-hover
+      className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] group relative overflow-hidden"
       style={{
-        transitionDelay: `${index * 120}ms`,
-        background: 'linear-gradient(145deg, rgba(14,16,24,0.95), rgba(8,10,16,0.98))',
+        transitionDelay:  `${index * 120}ms`,
+        borderRadius:     '20px',
+        border:           '1px solid rgba(255,255,255,0.07)',
+        background:       'linear-gradient(145deg, rgba(14,16,24,0.97), rgba(8,10,16,0.99))',
+        transformStyle:   'preserve-3d',
+        willChange:       'transform',
       }}
     >
-      {/* Hover glow */}
+      {/* Cursor-tracking glow layer */}
       <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-        style={{ background: `radial-gradient(circle at 50% 40%, ${product.glowColor.replace('0.4', '0.08')} 0%, transparent 60%)` }}
+        className="card-glow"
+        data-glow-color={product.glowColor.replace('0.4', '0.12').replace('0.35', '0.1').replace('0.3', '0.1')}
+        style={{
+          position:      'absolute',
+          inset:         0,
+          background:    `radial-gradient(circle at 50% 40%, ${product.glowColor.replace('0.4', '0.08').replace('0.35', '0.06').replace('0.3', '0.06')} 0%, transparent 60%)`,
+          opacity:       0,
+          transition:    'opacity .5s',
+          pointerEvents: 'none',
+          borderRadius:  '20px',
+        }}
+        // Revealed on hover via group
+      />
+      <style>{`
+        .group:hover .card-glow { opacity: 1 !important; }
+      `}</style>
+
+      {/* Top accent line that lights up on hover */}
+      <div style={{
+        position:   'absolute',
+        top:        0,
+        left:       0,
+        right:      0,
+        height:     1,
+        background: `linear-gradient(90deg, transparent, ${product.accentColor}, transparent)`,
+        opacity:    0,
+        transition: 'opacity .5s',
+      }}
+        className="group-hover:opacity-60"
       />
 
       {/* Bottle area */}
-      <div className="relative flex items-center justify-center pt-10 pb-6 min-h-[260px]">
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: `radial-gradient(circle at 50% 70%, ${product.glowColor.replace('0.4', '0.18')} 0%, transparent 60%)` }}
-        />
-        <BottleIllustration
-          gradient={product.bottleGradient}
-          glowColor={product.glowColor}
-          accentColor={product.accentColor}
-          sublabel={product.name}
-          size="md"
-        />
+      <div
+        style={{
+          position:        'relative',
+          display:         'flex',
+          alignItems:      'center',
+          justifyContent:  'center',
+          paddingTop:      '40px',
+          paddingBottom:   '20px',
+          minHeight:       '260px',
+        }}
+      >
+        <div style={{
+          position:      'absolute',
+          inset:         0,
+          background:    `radial-gradient(circle at 50% 70%, ${product.glowColor.replace('0.4', '0.18').replace('0.35', '0.14').replace('0.3', '0.12')} 0%, transparent 60%)`,
+          pointerEvents: 'none',
+          transition:    'opacity .5s',
+        }} />
+        {/* Bottle lifts on hover via CSS transform */}
+        <div style={{
+          transition: 'transform .5s cubic-bezier(0.16,1,0.3,1)',
+        }}
+          className="group-hover:-translate-y-3"
+        >
+          <BottleIllustration
+            gradient={product.bottleGradient}
+            glowColor={product.glowColor}
+            accentColor={product.accentColor}
+            sublabel={product.name}
+            size="md"
+          />
+        </div>
       </div>
 
       {/* Info */}
-      <div className="px-6 pb-7">
+      <div style={{ padding: '0 24px 28px' }}>
         {product.badge && (
-          <Badge variant="amber" className="mb-3 text-[10px] tracking-[0.18em] uppercase">
-            {product.badge}
-          </Badge>
+          <div style={{ marginBottom: '12px' }}>
+            <span style={{
+              display:       'inline-block',
+              fontSize:      '0.6rem',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              padding:       '3px 10px',
+              border:        `1px solid rgba(223,149,80,.4)`,
+              color:         'rgba(223,149,80,.9)',
+              fontFamily:    "'Inter', sans-serif",
+            }}>
+              {product.badge}
+            </span>
+          </div>
         )}
-        <h3 className="font-serif text-2xl text-white mb-1">{product.name}</h3>
-        <p className="text-xs uppercase tracking-[0.15em] text-muted/70 mb-3">{product.category}</p>
-        <p className="text-sm text-silver/70 leading-relaxed mb-5 line-clamp-2">{product.description}</p>
+
+        <h3 style={{
+          fontFamily:    "'Cormorant Garamond', Georgia, serif",
+          fontSize:      '1.6rem',
+          fontWeight:    400,
+          color:         '#ffffff',
+          marginBottom:  '4px',
+          letterSpacing: '0.04em',
+        }}>
+          {product.name}
+        </h3>
+
+        <p style={{
+          fontSize:      '0.62rem',
+          letterSpacing: '0.18em',
+          textTransform: 'uppercase',
+          color:         'rgba(167,170,180,.6)',
+          marginBottom:  '10px',
+          fontFamily:    "'Inter', sans-serif",
+        }}>
+          {product.category}
+        </p>
+
+        <p style={{
+          fontSize:     '0.88rem',
+          color:        'rgba(199,203,214,.65)',
+          lineHeight:   1.65,
+          marginBottom: '22px',
+          display:      '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow:     'hidden',
+          fontFamily:   "'Inter', sans-serif",
+        }}>
+          {product.description}
+        </p>
+
+        {/* Scent note pills */}
+        <div style={{
+          display:      'flex',
+          gap:          '6px',
+          flexWrap:     'wrap',
+          marginBottom: '24px',
+        }}>
+          {[...product.scentNotes.top.slice(0, 2), product.scentNotes.base[0]].map(note => (
+            <span
+              key={note}
+              style={{
+                fontSize:      '0.56rem',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                padding:       '3px 9px',
+                border:        '1px solid rgba(255,255,255,0.1)',
+                color:         'rgba(167,170,180,.7)',
+                borderRadius:  '2px',
+                fontFamily:    "'Inter', sans-serif",
+                transition:    'border-color .3s, color .3s',
+              }}
+            >
+              {note}
+            </span>
+          ))}
+        </div>
 
         {/* Price + CTA */}
-        <div className="flex items-center justify-between">
+        <div style={{
+          display:        'flex',
+          alignItems:     'center',
+          justifyContent: 'space-between',
+          paddingTop:     '20px',
+          borderTop:      '1px solid rgba(255,255,255,.06)',
+        }}>
           <div>
-            <p className="text-xs text-muted/60 mb-0.5 uppercase tracking-widest">From</p>
-            <p className="font-serif text-xl text-amber">
+            <p style={{
+              fontSize:      '0.58rem',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color:         'rgba(167,170,180,.5)',
+              marginBottom:  '2px',
+              fontFamily:    "'Inter', sans-serif",
+            }}>From</p>
+            <p style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize:   '1.35rem',
+              color:      'rgba(223,149,80,1)',
+            }}>
               {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(
                 Math.min(...product.sizes.map(s => s.price))
               )}
             </p>
           </div>
-          <Button
-            variant="amber"
-            size="sm"
+
+          <button
+            data-hover
             onClick={handleAdd}
-            className="text-xs tracking-widest uppercase transition-all"
+            style={{
+              padding:       '10px 20px',
+              background:    added ? 'rgba(223,149,80,.15)' : 'rgba(223,149,80,1)',
+              color:         added ? 'rgba(223,149,80,1)' : '#090b0f',
+              border:        added ? '1px solid rgba(223,149,80,.5)' : '1px solid transparent',
+              fontFamily:    "'Inter', sans-serif",
+              fontSize:      '0.62rem',
+              fontWeight:    600,
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              cursor:        'none',
+              transition:    'all .35s',
+            }}
           >
-            {added ? 'Added ✓' : 'Add to Cart'}
-          </Button>
+            {added ? '✓ Added' : 'Add to Cart'}
+          </button>
         </div>
       </div>
     </div>
   )
 }
 
+// ── Section ───────────────────────────────────────────────────────────────────
 export default function FeaturedProducts() {
   const featured = getFeatured()
 
   return (
-    <section className="py-28 px-6 max-w-7xl mx-auto">
-      <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-px bg-amber/60" />
-            <span className="text-xs uppercase tracking-[0.28em] text-amber/80">Signature Collection</span>
-          </div>
-          <h2 className="font-serif text-[clamp(2.2rem,4vw,3.5rem)] text-white tracking-wide leading-tight">
-            Crafted for the<br />bold and the rare.
-          </h2>
+    <section style={{ padding: '120px 32px', maxWidth: '1280px', margin: '0 auto' }}>
+      {/* Header */}
+      <div
+        className="reveal opacity-0 translate-y-6 transition-all duration-[900ms]"
+        style={{
+          display:        'flex',
+          flexDirection:  'column',
+          gap:            '24px',
+          marginBottom:   '72px',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ width: 32, height: 1, background: 'rgba(223,149,80,.6)' }} />
+          <span style={{
+            fontSize: '0.65rem', letterSpacing: '0.28em',
+            textTransform: 'uppercase', color: 'rgba(223,149,80,.85)',
+            fontFamily: "'Inter', sans-serif",
+          }}>
+            Signature Collection
+          </span>
         </div>
-        <Button variant="ghost" className="text-xs tracking-widest uppercase shrink-0 group" asChild>
-          <Link to="/shop">
-            View all fragrances
-            <ArrowRight className="w-3.5 h-3.5 ml-2 group-hover:translate-x-1 transition-transform" />
+
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '16px' }}>
+          <h2 style={{
+            fontFamily:    "'Cormorant Garamond', Georgia, serif",
+            fontSize:      'clamp(2rem, 4.5vw, 3.8rem)',
+            fontWeight:    400,
+            lineHeight:    1.1,
+            color:         '#ffffff',
+            letterSpacing: '0.03em',
+            maxWidth:      '600px',
+          }}>
+            Crafted for the bold<br />and the rare.
+          </h2>
+
+          <Link
+            to="/shop"
+            data-hover
+            style={{
+              display:        'inline-flex',
+              alignItems:     'center',
+              gap:            '8px',
+              fontFamily:     "'Inter', sans-serif",
+              fontSize:       '0.68rem',
+              letterSpacing:  '0.2em',
+              textTransform:  'uppercase',
+              color:          'rgba(199,203,214,.7)',
+              textDecoration: 'none',
+              flexShrink:     0,
+              transition:     'color .3s, gap .3s',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.color = 'rgba(223,149,80,1)'
+              e.currentTarget.style.gap   = '14px'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.color = 'rgba(199,203,214,.7)'
+              e.currentTarget.style.gap   = '8px'
+            }}
+          >
+            View all fragrances <ArrowRight size={13} />
           </Link>
-        </Button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {/* Grid */}
+      <div style={{
+        display:               'grid',
+        gridTemplateColumns:   'repeat(auto-fit, minmax(300px, 1fr))',
+        gap:                   '16px',
+      }}>
         {featured.map((product, i) => (
           <FeaturedCard key={product.id} product={product} index={i} />
         ))}
