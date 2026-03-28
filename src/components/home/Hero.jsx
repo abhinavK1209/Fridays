@@ -83,11 +83,9 @@ export default function Hero() {
       id="home"
       style={{
         position:      'relative',
-        minHeight:     '100vh',
+        height:        '100vh',      /* exact viewport height — keeps scroll indicator anchored */
         display:       'flex',
         flexDirection: 'column',
-        justifyContent:'center',
-        paddingTop:    '80px',   /* clears the fixed nav (~76px) */
         overflow:      'hidden',
         background:    '#090b0f',
       }}
@@ -134,15 +132,26 @@ export default function Hero() {
         }}
       />
 
+      {/* ── Content wrapper: grows to fill, centers the grid, clears fixed nav ── */}
+      <div
+        style={{
+          flex:           1,
+          display:        'flex',
+          alignItems:     'center',
+          paddingTop:     '80px',
+          overflow:       'hidden',
+          position:       'relative',
+          zIndex:         10,
+        }}
+      >
+
       {/* ── Content grid ── */}
       <div
         style={{
-          position:     'relative',
-          zIndex:       10,
           width:        '100%',
           maxWidth:     '1280px',
           margin:       '0 auto',
-          padding:      '60px 32px 80px',
+          padding:      '24px 32px',
           display:      'grid',
           gridTemplateColumns: '1fr auto',
           gap:          '48px',
@@ -390,20 +399,22 @@ export default function Hero() {
           />
         </div>
       </div>
+      </div>{/* end content wrapper */}
 
-      {/* ── Scroll indicator ── */}
+      {/* ── Scroll indicator — flex child pinned at section bottom ── */}
       <div
         style={{
-          position:   'absolute',
-          bottom:     36,
-          left:       '50%',
-          transform:  'translateX(-50%)',
-          display:    'flex',
+          position:      'relative',
+          zIndex:        10,
+          flexShrink:    0,
+          display:       'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          gap:        '10px',
-          opacity:    mounted ? 0.45 : 0,
-          transition: 'opacity 1s ease 2s',
+          alignItems:    'center',
+          gap:           '12px',
+          paddingBottom: '36px',
+          paddingTop:    '16px',
+          opacity:       mounted ? 0.45 : 0,
+          transition:    'opacity 1s ease 2s',
         }}
       >
         <span style={{
