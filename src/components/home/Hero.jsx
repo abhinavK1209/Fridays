@@ -82,12 +82,14 @@ export default function Hero() {
     <section
       id="home"
       style={{
-        position:   'relative',
-        minHeight:  '100vh',
-        display:    'flex',
-        alignItems: 'center',
-        overflow:   'hidden',
-        background: '#090b0f',
+        position:      'relative',
+        minHeight:     '100vh',
+        display:       'flex',
+        flexDirection: 'column',
+        justifyContent:'center',
+        paddingTop:    '80px',   /* clears the fixed nav (~76px) */
+        overflow:      'hidden',
+        background:    '#090b0f',
       }}
     >
       {/* ── Vercel-inspired radial spectrum glow ── */}
@@ -140,7 +142,7 @@ export default function Hero() {
           width:        '100%',
           maxWidth:     '1280px',
           margin:       '0 auto',
-          padding:      '120px 32px 80px',
+          padding:      '60px 32px 80px',
           display:      'grid',
           gridTemplateColumns: '1fr auto',
           gap:          '48px',

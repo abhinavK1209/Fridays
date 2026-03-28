@@ -5,6 +5,7 @@ import { useCart } from '@/context/CartContext'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
+  { label: 'Home', to: '/' },
   { label: 'Collection', to: '/shop' },
   { label: 'Story', to: '/about' },
 ]
@@ -144,9 +145,6 @@ export default function Header() {
         style={{ background: 'rgba(7,9,12,0.97)', backdropFilter: 'blur(20px)' }}
       >
         <nav className="flex flex-col gap-8 mt-8" aria-label="Mobile navigation">
-          <Link to="/" className="font-serif text-3xl text-white/80 hover:text-white transition-colors">
-            Home
-          </Link>
           {navLinks.map(({ label, to }) => (
             <Link
               key={to}
