@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { X, Star, ChevronDown, ChevronUp } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import BottleIllustration from '@/components/common/BottleIllustration'
+import BottleImage from '@/components/common/BottleImage'
 import { useCart } from '@/context/CartContext'
 import { cn } from '@/lib/utils'
 
@@ -115,7 +115,8 @@ export default function ProductModal({ product, onClose }) {
             background: `radial-gradient(circle at 50% 60%, ${product.glowColor.replace(/[\d.]+\)$/, '0.2)')} 0%, transparent 60%), rgba(8,10,14,0.8)`,
           }}
         >
-          <BottleIllustration
+          <BottleImage
+            image={product.image}
             gradient={product.bottleGradient}
             glowColor={product.glowColor}
             accentColor={product.accentColor}

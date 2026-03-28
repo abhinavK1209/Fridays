@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import BottleIllustration from '@/components/common/BottleIllustration'
+import BottleImage from '@/components/common/BottleImage'
 import { useCart } from '@/context/CartContext'
 import { useToast } from '@/context/ToastContext'
 import { cn } from '@/lib/utils'
@@ -56,7 +56,8 @@ export default function ProductCard({ product, onOpen }) {
             background: `radial-gradient(circle at 50% 70%, ${product.glowColor.replace(/[\d.]+\)$/, '0.15)')} 0%, transparent 55%)`,
           }}
         />
-        <BottleIllustration
+        <BottleImage
+          image={product.image}
           gradient={product.bottleGradient}
           glowColor={product.glowColor}
           accentColor={product.accentColor}

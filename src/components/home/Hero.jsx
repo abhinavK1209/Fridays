@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, ChevronDown } from 'lucide-react'
-import BottleIllustration from '@/components/common/BottleIllustration'
+import BottleImage from '@/components/common/BottleImage'
 import { products } from '@/data/products'
 
 const hero = products[0]
@@ -435,13 +435,15 @@ export default function Hero() {
             animation:    'glowpulse 3s ease-in-out infinite 1s',
             pointerEvents:'none',
           }} />
-          <BottleIllustration
+          <BottleImage
+            image={hero.image}
+            alt={hero.name}
             gradient={hero.bottleGradient}
             glowColor={hero.glowColor}
             accentColor={hero.accentColor}
             label="Friday's"
             sublabel={hero.name}
-            size="xxl"
+            size="xl"
           />
         </div>
       </div>

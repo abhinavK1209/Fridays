@@ -2,6 +2,7 @@ export const products = [
   {
     id: 'aelia',
     name: 'Aelia',
+    image: '/images/aelia.png',
     tagline: 'The scent of ambition after dark.',
     description: 'An electrifying composition that opens with luminous clarity, deepens into smoky seduction, and settles into a warm, magnetic trail.',
     longDescription:
@@ -32,6 +33,7 @@ export const products = [
   {
     id: 'azura',
     name: 'Azura',
+    image: '/images/azura.png',
     tagline: 'Industrial edge. Velvet finish.',
     description: 'A chrome-cool concentration of neroli, smoked incense, and polished woods. Engineered, not blended.',
     longDescription:
@@ -61,6 +63,7 @@ export const products = [
   {
     id: 'kayaan',
     name: 'Kayaan',
+    image: '/images/kayaan.png',
     tagline: 'The warmth between day and dark.',
     description: 'Golden hour captured in amber, rose oxide, and sun-warmed oud. Radiant, lush, enduring.',
     longDescription:

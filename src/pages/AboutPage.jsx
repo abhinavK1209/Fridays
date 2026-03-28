@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import BottleIllustration from '@/components/common/BottleIllustration'
+import BottleImage from '@/components/common/BottleImage'
 import { products } from '@/data/products'
 import { useReveal } from '@/hooks/useReveal'
 
@@ -70,7 +70,9 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] delay-200 flex justify-center lg:justify-end">
-            <BottleIllustration
+            <BottleImage
+              image={products[0].image}
+              alt="Aelia"
               gradient={products[0].bottleGradient}
               glowColor={products[0].glowColor}
               accentColor={products[0].accentColor}

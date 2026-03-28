@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import BottleIllustration from '@/components/common/BottleIllustration'
+import BottleImage from '@/components/common/BottleImage'
 import { getFeatured } from '@/data/products'
 import { useCart } from '@/context/CartContext'
 
@@ -129,7 +129,8 @@ function FeaturedCard({ product, index }) {
         }}
           className="group-hover:-translate-y-3"
         >
-          <BottleIllustration
+          <BottleImage
+            image={product.image}
             gradient={product.bottleGradient}
             glowColor={product.glowColor}
             accentColor={product.accentColor}
