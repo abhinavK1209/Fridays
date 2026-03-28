@@ -16,24 +16,24 @@ const pillars = [
     Icon: Sparkles,
     title: 'Rare Ingredients',
     body: 'Sourced from Grasse, oud regions, and beyond — every note is an authentic material, never a synthetic substitution.',
-    color: 'rgba(90,139,255,.9)',
-    bg:    'rgba(90,139,255,.06)',
+    color: 'rgba(223,149,80,.9)',
+    bg:    'rgba(223,149,80,.06)',
     delay: 120,
   },
   {
     Icon: Wind,
     title: 'Master Perfumers',
     body: 'Composed by perfumers who approach scent as architecture — layered, intentional, and built to leave an impression.',
-    color: 'rgba(150,80,220,.9)',
-    bg:    'rgba(150,80,220,.06)',
+    color: 'rgba(223,149,80,.9)',
+    bg:    'rgba(223,149,80,.06)',
     delay: 240,
   },
   {
     Icon: Leaf,
     title: 'Conscious Crafting',
     body: 'Cruelty-free formulation, recycled packaging, and a commitment to traceability across our entire supply chain.',
-    color: 'rgba(80,200,140,.9)',
-    bg:    'rgba(80,200,140,.06)',
+    color: 'rgba(223,149,80,.9)',
+    bg:    'rgba(223,149,80,.06)',
     delay: 360,
   },
 ]
@@ -159,7 +159,7 @@ export default function BrandStory() {
             marginBottom:  '32px',
           }}>
             "A scent is not a product.<br />
-            <em style={{ color: 'rgba(90,139,255,.9)', fontStyle: 'italic' }}>It's a signature.</em>"
+            <em style={{ color: 'rgba(223,149,80,.85)', fontStyle: 'italic' }}>It's a signature.</em>"
           </blockquote>
 
           <p style={{
@@ -242,9 +242,9 @@ export default function BrandStory() {
       {/* ── Reverse Marquee ── */}
       <div style={{
         padding:     '20px 0',
-        borderTop:   '1px solid rgba(90,139,255,.06)',
-        borderBottom:'1px solid rgba(90,139,255,.06)',
-        background:  'rgba(90,139,255,.02)',
+        borderTop:   '1px solid rgba(223,149,80,.06)',
+        borderBottom:'1px solid rgba(223,149,80,.06)',
+        background:  'rgba(223,149,80,.02)',
       }}>
         <Marquee
           items={['Noir Ember', 'Midnight Alloy', 'Dusk Meridian', 'Velvet Archive', 'Weekend Code', "Friday's Ritual"]}

@@ -183,7 +183,6 @@ export default function Hero() {
           display:        'flex',
           alignItems:     'center',
           paddingTop:     '80px',
-          overflow:       'hidden',
           position:       'relative',
           zIndex:         10,
         }}
@@ -195,10 +194,10 @@ export default function Hero() {
           width:        '100%',
           maxWidth:     '1280px',
           margin:       '0 auto',
-          padding:      '24px 32px',
+          padding:      '0 48px',
           display:      'grid',
-          gridTemplateColumns: '1fr auto',
-          gap:          '48px',
+          gridTemplateColumns: '1fr 1fr',
+          gap:          '32px',
           alignItems:   'center',
         }}
       >
@@ -412,21 +411,27 @@ export default function Hero() {
         >
           <div style={{
             position:     'absolute',
+            top:          '50%',
+            left:         '50%',
+            transform:    'translate(-50%, -50%)',
             width:        480,
             height:       480,
             borderRadius: '50%',
-            background:   'radial-gradient(circle, rgba(90,139,255,.35) 0%, transparent 65%)',
-            filter:       'blur(28px)',
+            background:   'radial-gradient(circle, rgba(90,139,255,.25) 0%, transparent 65%)',
+            filter:       'blur(40px)',
             animation:    'glowpulse 3s ease-in-out infinite',
             pointerEvents:'none',
           }} />
           <div style={{
             position:     'absolute',
+            top:          '50%',
+            left:         '50%',
+            transform:    'translate(-50%, -50%)',
             width:        260,
             height:       260,
             borderRadius: '50%',
-            background:   'radial-gradient(circle, rgba(223,149,80,.22) 0%, transparent 70%)',
-            filter:       'blur(12px)',
+            background:   'radial-gradient(circle, rgba(223,149,80,.18) 0%, transparent 70%)',
+            filter:       'blur(24px)',
             animation:    'glowpulse 3s ease-in-out infinite 1s',
             pointerEvents:'none',
           }} />
