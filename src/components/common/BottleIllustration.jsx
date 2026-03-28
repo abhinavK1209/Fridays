@@ -58,7 +58,7 @@ export default function BottleIllustration({
           height: d.body[1],
           borderRadius: d.radius,
           background: gradient,
-          boxShadow: `inset 0 0 40px rgba(255,255,255,0.04), 0 20px 60px rgba(0,0,0,0.55), 0 0 50px ${glowColor.replace('0.4', '0.12')}`,
+          boxShadow: `inset 0 0 60px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.15), 0 20px 60px rgba(0,0,0,0.55), 0 0 80px ${glowColor}`,
         }}
       >
         {/* Accent line */}
@@ -91,14 +91,26 @@ export default function BottleIllustration({
 
         {/* Inner shine streak */}
         <div
-          className="absolute rounded-full opacity-15 pointer-events-none"
+          className="absolute rounded-full opacity-30 pointer-events-none"
           style={{
             top: '8%',
             left: '14%',
             width: d.shine[0],
             height: d.shine[1],
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.7) 0%, transparent 100%)',
-            filter: 'blur(3px)',
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.9) 0%, transparent 100%)',
+            filter: 'blur(2px)',
+          }}
+        />
+        {/* Second subtle shine */}
+        <div
+          className="absolute rounded-full opacity-10 pointer-events-none"
+          style={{
+            top: '20%',
+            right: '18%',
+            width: d.shine[0] * 0.5,
+            height: d.shine[1] * 0.6,
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.6) 0%, transparent 100%)',
+            filter: 'blur(4px)',
           }}
         />
       </div>
