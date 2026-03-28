@@ -5,7 +5,6 @@ import { ToastProvider } from '@/context/ToastContext'
 import Header      from '@/components/layout/Header'
 import Footer      from '@/components/layout/Footer'
 import CartSlideout from '@/components/cart/CartSlideout'
-import CustomCursor from '@/components/effects/CustomCursor'
 import ParticleCanvas from '@/components/effects/ParticleCanvas'
 import ScrollToTopButton from '@/components/effects/ScrollToTop'
 import { useLenis } from '@/hooks/useLenis'
@@ -32,7 +31,6 @@ function AppLayout() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans" style={{ position: 'relative' }}>
-      <CustomCursor />
       <ParticleCanvas />
       <ScrollToTopButton />
 
