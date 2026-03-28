@@ -4,7 +4,7 @@ import { ArrowRight, ChevronDown } from 'lucide-react'
 import BottleImage from '@/components/common/BottleImage'
 import { products } from '@/data/products'
 
-const hero = products[0]
+const heroProducts = products.filter(p => p.image)
 
 // ── Text Scramble effect ─────────────────────────────────────────────────────
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -68,6 +68,19 @@ function useParallax(strength = 0.3) {
 export default function Hero() {
   const [mounted, setMounted] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [heroIdx, setHeroIdx] = useState(0)
+  const [imgVisible, setImgVisible] = useState(true)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setImgVisible(false)
+      setTimeout(() => {
+        setHeroIdx(i => (i + 1) % heroProducts.length)
+        setImgVisible(true)
+      }, 400)
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [])
   const bottleRef = useParallax(-0.12) // bottle drifts up slower than scroll
 
   useEffect(() => {
@@ -435,16 +448,18 @@ export default function Hero() {
             animation:    'glowpulse 3s ease-in-out infinite 1s',
             pointerEvents:'none',
           }} />
-          <BottleImage
-            image={hero.image}
-            alt={hero.name}
-            gradient={hero.bottleGradient}
-            glowColor={hero.glowColor}
-            accentColor={hero.accentColor}
-            label="Friday's"
-            sublabel={hero.name}
-            size="xl"
-          />
+          <div style={{ transition: 'opacity 0.4s ease', opacity: imgVisible ? 1 : 0 }}>
+            <BottleImage
+              image={heroProducts[heroIdx].image}
+              alt={heroProducts[heroIdx].name}
+              gradient={heroProducts[heroIdx].bottleGradient}
+              glowColor={heroProducts[heroIdx].glowColor}
+              accentColor={heroProducts[heroIdx].accentColor}
+              label="Friday's"
+              sublabel={heroProducts[heroIdx].name}
+              size="xl"
+            />
+          </div>
         </div>
       </div>
       </div>{/* end content wrapper */}
