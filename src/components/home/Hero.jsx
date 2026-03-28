@@ -355,23 +355,24 @@ export default function Hero() {
             transition:      'opacity 1.2s ease .6s, transform 1.2s ease .6s',
           }}
         >
-          {/* Multi-layer glow (Vercel-inspired) */}
+          {/* Blue outer glow — matches preview exactly */}
           <div style={{
             position:   'absolute',
-            width:       520,
-            height:      520,
+            width:       480,
+            height:      480,
             borderRadius:'50%',
-            background:  `radial-gradient(circle, ${hero.glowColor} 0%, transparent 65%)`,
+            background:  'radial-gradient(circle, rgba(90,139,255,.35) 0%, transparent 65%)',
             filter:      'blur(28px)',
             animation:   'glowpulse 3s ease-in-out infinite',
             pointerEvents:'none',
           }} />
+          {/* Amber inner glow */}
           <div style={{
             position:   'absolute',
-            width:       280,
-            height:      280,
+            width:       260,
+            height:      260,
             borderRadius:'50%',
-            background:  `radial-gradient(circle, rgba(223,149,80,0.2) 0%, transparent 70%)`,
+            background:  'radial-gradient(circle, rgba(223,149,80,.22) 0%, transparent 70%)',
             filter:      'blur(12px)',
             animation:   'glowpulse 3s ease-in-out infinite 1s',
             pointerEvents:'none',

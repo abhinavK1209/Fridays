@@ -208,38 +208,36 @@ export default function BrandStory() {
         <Marquee items={scentWords} speed={38} />
       </div>
 
-      {/* ── Stats Row ── */}
-      <section style={{
-        padding:    '100px 32px',
-        background: 'rgba(10,11,15,.8)',
+      {/* ── Stats Row — full width, matches preview ── */}
+      <div style={{
+        display:             'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap:                 '1px',
+        background:          'rgba(223,149,80,.07)',
       }}>
-        <div style={{
-          maxWidth:              '1280px',
-          margin:                '0 auto',
-          display:               'grid',
-          gridTemplateColumns:   'repeat(4, 1fr)',
-          gap:                   '1px',
-          background:            'rgba(223,149,80,.07)',
-        }}>
-          {[
-            { value: '6+',   label: 'Fragrances' },
-            { value: '12+',  label: 'Hour Wear' },
-            { value: '100%', label: 'Cruelty Free' },
-            { value: '47',   label: 'Ingredients' },
-          ].map(s => (
-            <div key={s.label} style={{
-              background: '#090b0f',
-              padding:    '64px 40px',
-              transition: 'background .3s',
+        {[
+          { value: '6+',   label: 'Fragrances' },
+          { value: '12+',  label: 'Hour Wear' },
+          { value: '100%', label: 'Cruelty Free' },
+          { value: '47',   label: 'Rare Ingredients' },
+        ].map((s, i) => (
+          <div
+            key={s.label}
+            className={`reveal opacity-0 translate-y-6 transition-all duration-[900ms]`}
+            style={{
+              background:        '#090b0f',
+              padding:           '72px 40px',
+              textAlign:         'center',
+              transition:        'background .3s',
+              transitionDelay:   `${i * 100}ms`,
             }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(223,149,80,.03)'}
-              onMouseLeave={e => e.currentTarget.style.background = '#090b0f'}
-            >
-              <StatItem value={s.value} label={s.label} />
-            </div>
-          ))}
-        </div>
-      </section>
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(223,149,80,.03)'}
+            onMouseLeave={e => e.currentTarget.style.background = '#090b0f'}
+          >
+            <StatItem value={s.value} label={s.label} />
+          </div>
+        ))}
+      </div>
 
       {/* ── Reverse Marquee ── */}
       <div style={{

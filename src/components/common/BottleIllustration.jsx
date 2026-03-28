@@ -1,9 +1,22 @@
-import { cn } from '@/lib/utils'
+import { useId } from 'react'
 
 /**
- * CSS-rendered perfume bottle illustration.
- * Pass `gradient`, `glowColor`, and `accentColor` from the product data.
+ * SVG-based perfume bottle — matches the preview.html design exactly.
+ * Amber cap, gradient body with shoulder path, glass shine, label.
  */
+function parseGradientStops(gradientStr) {
+  const pattern = /(#[0-9a-fA-F]{3,6})\s+([\d.]+)%/g
+  const stops = []
+  let match
+  while ((match = pattern.exec(gradientStr)) !== null) {
+    stops.push({ color: match[1], offset: match[2] + '%' })
+  }
+  return stops.length > 0 ? stops : [
+    { color: '#1a1a2e', offset: '0%' },
+    { color: '#0a0a1e', offset: '100%' },
+  ]
+}
+
 export default function BottleIllustration({
   gradient,
   glowColor = 'rgba(90,139,255,0.4)',
@@ -12,108 +25,130 @@ export default function BottleIllustration({
   sublabel = '',
   size = 'md',
   animate = true,
-  className,
 }) {
+  const uid = useId().replace(/:/g, '')
+  const stops = parseGradientStops(gradient || '')
+
   const dims = {
-    sm:  { wrap: [72, 116],  neck: [28, 14],  body: [62,  96],  textSize: '5px',  subSize: '4px', shine: [8, 60],  radius: 10 },
-    md:  { wrap: [130, 210], neck: [52, 24],  body: [110, 170], textSize: '9px',  subSize: '7px', shine: [10, 90], radius: 14 },
-    lg:  { wrap: [200, 360], neck: [78, 38],  body: [170, 314], textSize: '10px', subSize: '8px', shine: [12, 120], radius: 20 },
-    xl:  { wrap: [230, 400], neck: [88, 42],  body: [200, 348], textSize: '11px', subSize: '8px', shine: [14, 130], radius: 22 },
+    sm:  { w: 55,  h: 130 },
+    md:  { w: 80,  h: 190 },
+    lg:  { w: 120, h: 280 },
+    xl:  { w: 160, h: 370 },
   }
   const d = dims[size] || dims.md
 
+  // All bottles use a fixed viewBox; width/height scales it
   return (
     <div
-      className={cn('relative', animate && 'animate-float', className)}
-      style={{ width: d.wrap[0], height: d.wrap[1] }}
+      style={{ position: 'relative', width: d.w, height: d.h, display: 'inline-block' }}
     >
-      {/* Glow orb behind bottle */}
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none animate-glow-pulse"
-        style={{
-          width: d.wrap[0] * 1.4,
-          height: d.wrap[0] * 1.4,
-          borderRadius: '50%',
-          background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
-          filter: 'blur(12px)',
-          bottom: '-10%',
-        }}
-      />
+      {/* Glow behind bottle */}
+      <div style={{
+        position:     'absolute',
+        bottom:       '-12%',
+        left:         '50%',
+        transform:    'translateX(-50%)',
+        width:        d.w * 2.2,
+        height:       d.w * 2.2,
+        borderRadius: '50%',
+        background:   `radial-gradient(circle, ${glowColor} 0%, transparent 65%)`,
+        filter:       'blur(18px)',
+        pointerEvents:'none',
+        animation:    'glowpulse 3s ease-in-out infinite',
+      }} />
 
-      {/* Neck */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 rounded-t-xl rounded-b-sm border border-white/20"
-        style={{
-          width: d.neck[0],
-          height: d.neck[1],
-          background: 'linear-gradient(180deg, #3a4460 0%, #1c2236 100%)',
-        }}
-      />
-
-      {/* Body */}
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 border border-white/20 flex items-center justify-center overflow-hidden"
-        style={{
-          width: d.body[0],
-          height: d.body[1],
-          borderRadius: d.radius,
-          background: gradient,
-          boxShadow: `inset 0 0 60px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.15), 0 20px 60px rgba(0,0,0,0.55), 0 0 80px ${glowColor}`,
-        }}
+      <svg
+        width={d.w}
+        height={d.h}
+        viewBox="0 0 160 370"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ animation: animate ? 'float 7s ease-in-out infinite' : 'none', display: 'block' }}
       >
-        {/* Accent line */}
-        <div
-          className="absolute top-0 left-0 right-0 h-px opacity-30"
-          style={{ background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)` }}
+        <defs>
+          <linearGradient id={`bg-${uid}`} x1="0" y1="0" x2="1" y2="1">
+            {stops.map((s, i) => (
+              <stop key={i} offset={s.offset} stopColor={s.color} />
+            ))}
+          </linearGradient>
+          <radialGradient id={`shine-${uid}`} cx="28%" cy="18%" r="55%">
+            <stop offset="0%"   stopColor="rgba(255,255,255,.13)" />
+            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+          </radialGradient>
+        </defs>
+
+        {/* Drop shadow */}
+        <ellipse cx="80" cy="356" rx="50" ry="9" fill={glowColor.replace(/[\d.]+\)$/, '0.18)')} />
+
+        {/* Cap — always amber gold */}
+        <rect x="50" y="2" width="60" height="32" rx="5" fill="#df9550" />
+        <rect x="56" y="7" width="48" height="18" rx="3" fill="rgba(255,210,150,.28)" />
+
+        {/* Neck */}
+        <rect x="58" y="34" width="44" height="26" rx="3" fill="#b87a38" opacity=".85" />
+        <rect x="63" y="37" width="34" height="18" rx="2" fill="rgba(255,200,120,.1)" />
+
+        {/* Shoulder curve */}
+        <path d="M22 98 Q22 60 58 60 L102 60 Q138 60 138 98" fill={`url(#bg-${uid})`} />
+
+        {/* Body */}
+        <rect x="22" y="98" width="116" height="230" rx="6" fill={`url(#bg-${uid})`} />
+
+        {/* Glass shine overlay */}
+        <rect x="22" y="98" width="116" height="230" rx="6" fill={`url(#shine-${uid})`} />
+
+        {/* Left edge glint */}
+        <rect x="30" y="108" width="12" height="210" rx="6" fill="rgba(255,255,255,.055)" />
+
+        {/* Right subtle glint */}
+        <rect x="120" y="120" width="7" height="160" rx="3" fill="rgba(255,255,255,.025)" />
+
+        {/* Label rectangle */}
+        <rect
+          x="30" y="148" width="100" height="112" rx="3"
+          fill={accentColor + '14'}
+          stroke={accentColor}
+          strokeWidth=".75"
+          strokeOpacity=".35"
         />
 
-        {/* Label text */}
-        <div className="text-center select-none z-10 relative px-2">
-          <p
-            className="font-serif uppercase tracking-[0.3em] text-white/80"
-            style={{ fontSize: d.textSize }}
+        {/* Top rule inside label */}
+        <line x1="38" y1="153" x2="122" y2="153" stroke={accentColor} strokeWidth=".6" strokeOpacity=".22" />
+
+        {/* Brand name */}
+        <text
+          x="80" y="191"
+          textAnchor="middle"
+          fill="rgba(255,255,255,.88)"
+          fontFamily="'Cormorant Garamond',Georgia,serif"
+          fontSize="14"
+          letterSpacing="5"
+          fontWeight="400"
+        >
+          {label.toUpperCase()}
+        </text>
+
+        {/* Divider line */}
+        <line x1="44" y1="201" x2="116" y2="201" stroke={accentColor} strokeWidth=".5" strokeOpacity=".2" />
+
+        {/* Product name */}
+        {sublabel && (
+          <text
+            x="80" y="218"
+            textAnchor="middle"
+            fill={accentColor}
+            fillOpacity=".65"
+            fontFamily="'Cormorant Garamond',Georgia,serif"
+            fontSize="7.5"
+            letterSpacing="3.5"
           >
-            {label}
-          </p>
-          <div
-            className="mx-auto my-1.5 opacity-50"
-            style={{ width: d.wrap[0] * 0.25, height: 1, background: accentColor }}
-          />
-          {sublabel && (
-            <p
-              className="uppercase tracking-[0.2em] text-white/50"
-              style={{ fontSize: d.subSize }}
-            >
-              {sublabel}
-            </p>
-          )}
-        </div>
+            {sublabel.toUpperCase()}
+          </text>
+        )}
 
-        {/* Inner shine streak */}
-        <div
-          className="absolute rounded-full opacity-30 pointer-events-none"
-          style={{
-            top: '8%',
-            left: '14%',
-            width: d.shine[0],
-            height: d.shine[1],
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.9) 0%, transparent 100%)',
-            filter: 'blur(2px)',
-          }}
-        />
-        {/* Second subtle shine */}
-        <div
-          className="absolute rounded-full opacity-10 pointer-events-none"
-          style={{
-            top: '20%',
-            right: '18%',
-            width: d.shine[0] * 0.5,
-            height: d.shine[1] * 0.6,
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.6) 0%, transparent 100%)',
-            filter: 'blur(4px)',
-          }}
-        />
-      </div>
+        {/* Base bottom bar */}
+        <rect x="22" y="328" width="116" height="7" rx="3" fill="#070a0e" />
+      </svg>
     </div>
   )
 }

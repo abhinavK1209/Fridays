@@ -63,11 +63,14 @@ function FeaturedCard({ product, index }) {
       style={{
         transitionDelay:  `${index * 120}ms`,
         borderRadius:     '20px',
-        border:           '1px solid rgba(255,255,255,0.13)',
-        background:       'linear-gradient(145deg, rgba(20,22,34,0.98), rgba(12,14,22,1))',
+        border:           '1px solid rgba(255,255,255,0.07)',
+        background:       '#101318',
         transformStyle:   'preserve-3d',
         willChange:       'transform',
+        transition:       'border-color .45s',
       }}
+      onMouseEnter={e => { e.currentTarget.style.borderColor = `${product.accentColor}38` }}
+      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)' }}
     >
       {/* Cursor-tracking glow layer */}
       <div
@@ -76,16 +79,15 @@ function FeaturedCard({ product, index }) {
         style={{
           position:      'absolute',
           inset:         0,
-          background:    `radial-gradient(circle at 50% 30%, ${product.glowColor.replace(/[\d.]+\)$/, '0.18)')} 0%, transparent 65%)`,
-          opacity:       1,
+          background:    `radial-gradient(circle at 50% 70%, ${product.glowColor} 0%, transparent 60%)`,
+          opacity:       0.5,
           transition:    'opacity .5s, background .1s',
           pointerEvents: 'none',
           borderRadius:  '20px',
         }}
-        // Revealed on hover via group
       />
       <style>{`
-        .group:hover .card-glow { opacity: 1 !important; filter: brightness(1.4); }
+        .group:hover .card-glow { opacity: 1 !important; }
       `}</style>
 
       {/* Top accent line that lights up on hover */}
