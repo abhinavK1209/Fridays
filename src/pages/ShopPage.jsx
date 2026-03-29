@@ -28,7 +28,7 @@ export default function ShopPage() {
     <>
       {/* Hero strip */}
       <section
-        className="pt-32 pb-16 px-6 border-b border-white/6"
+        className="pt-32 pb-16 px-6"
         style={{
           background:
             'radial-gradient(ellipse at 50% 0%, rgba(20,26,44,0.6) 0%, transparent 60%), #090b0f',
@@ -50,7 +50,7 @@ export default function ShopPage() {
       </section>
 
       {/* Filter bar */}
-      <div className="sticky top-[72px] z-30 border-b border-white/6 backdrop-blur-xl" style={{ background: 'rgba(9,11,15,0.9)' }}>
+      <div className="sticky top-[72px] z-30 backdrop-blur-xl" style={{ background: 'rgba(9,11,15,0.9)' }}>
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center gap-3 overflow-x-auto scrollbar-hide">
           <SlidersHorizontal className="w-4 h-4 text-muted/50 shrink-0" />
           {categories.map(cat => (
