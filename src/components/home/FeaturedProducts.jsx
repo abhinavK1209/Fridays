@@ -280,7 +280,7 @@ export default function FeaturedProducts() {
   const featured = getFeatured()
 
   return (
-    <section style={{ padding: '120px 32px', maxWidth: '1280px', margin: '0 auto' }}>
+    <section className="featured-section" style={{ padding: '120px 32px', maxWidth: '1280px', margin: '0 auto' }}>
       {/* Header */}
       <div
         className="reveal opacity-0 translate-y-6 transition-all duration-[900ms]"
@@ -302,7 +302,7 @@ export default function FeaturedProducts() {
           </span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '16px' }}>
+        <div className="featured-header">
           <h2 style={{
             fontFamily:    "'Cormorant Garamond', Georgia, serif",
             fontSize:      'clamp(2rem, 4.5vw, 3.8rem)',

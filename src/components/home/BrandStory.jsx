@@ -109,6 +109,7 @@ export default function BrandStory() {
     <>
       {/* ── Brand Quote ── */}
       <section
+        className="brand-quote-section"
         style={{
           padding:    '100px 32px',
           borderTop:  '1px solid rgba(255,255,255,.05)',
@@ -209,12 +210,7 @@ export default function BrandStory() {
       </div>
 
       {/* ── Stats Row — full width, matches preview ── */}
-      <div style={{
-        display:             'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap:                 '1px',
-        background:          'rgba(223,149,80,.07)',
-      }}>
+      <div className="stats-grid">
         {[
           { value: '6+',   label: 'Fragrances' },
           { value: '12+',  label: 'Hour Wear' },
@@ -255,7 +251,7 @@ export default function BrandStory() {
       </div>
 
       {/* ── Pillars ── */}
-      <section style={{ padding: '120px 32px' }}>
+      <section className="pillars-section" style={{ padding: '120px 32px' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div
             className="reveal opacity-0 translate-y-6 transition-all duration-[900ms]"

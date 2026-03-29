@@ -391,3 +391,66 @@ h1 {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── React app mobile responsive ── */
+
+.hero-grid {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(223,149,80,.07);
+}
+
+.featured-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+  }
+  .hero-bottle-col {
+    display: none;
+  }
+  .hero-trust-pillars {
+    gap: 20px !important;
+    flex-wrap: wrap;
+  }
+  .featured-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .brand-quote-section {
+    padding: 60px 24px !important;
+  }
+  .pillars-section {
+    padding: 60px 24px !important;
+  }
+  .featured-section {
+    padding: 60px 24px !important;
+  }
+  .about-values-cell {
+    padding: 28px 20px !important;
+  }
+}

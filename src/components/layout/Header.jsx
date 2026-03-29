@@ -387,7 +387,27 @@ export default function Header() {
             </>
           )}
         </nav>
-        <div className="mt-auto border-t border-white/10 pt-8">
+        <div className="mt-auto border-t border-white/10 pt-8 flex flex-col gap-4">
+          <Link
+            to="/shop"
+            onClick={() => setMobileOpen(false)}
+            style={{
+              display:        'inline-flex',
+              alignItems:     'center',
+              justifyContent: 'center',
+              padding:        '14px 32px',
+              background:     '#df9550',
+              color:          '#090b0f',
+              fontFamily:     "'Inter', sans-serif",
+              fontSize:       '0.7rem',
+              fontWeight:     600,
+              letterSpacing:  '0.2em',
+              textTransform:  'uppercase',
+              textDecoration: 'none',
+            }}
+          >
+            Shop Now
+          </Link>
           <p className="text-muted text-sm tracking-widest uppercase">Modern Scent Redefined.</p>
         </div>
       </div>

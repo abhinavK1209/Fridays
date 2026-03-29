@@ -119,7 +119,7 @@ export default function AboutPage() {
             {values.map(({ num, title, body }, i) => (
               <div
                 key={num}
-                className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] group"
+                className="about-values-cell reveal opacity-0 translate-y-6 transition-all duration-[900ms] group"
                 style={{
                   transitionDelay: `${i * 100}ms`,
                   padding: '40px 36px',

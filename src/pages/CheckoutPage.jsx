@@ -135,7 +135,7 @@ function ShippingForm({ onNext }) {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label className="block text-xs text-muted/70 mb-1.5 tracking-wide">First Name *</label>
           <Input value={form.firstName} onChange={set('firstName')} placeholder="Marcus" required />
@@ -174,7 +174,7 @@ function ShippingForm({ onNext }) {
         <Input value={form.apt} onChange={set('apt')} placeholder="Apt 4B (optional)" />
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="col-span-1">
           <label className="block text-xs text-muted/70 mb-1.5 tracking-wide">City *</label>
           <Input value={form.city} onChange={set('city')} placeholder="Miami" required />
@@ -267,7 +267,7 @@ function PaymentForm({ shippingInfo, cartSubtotal, items, onConfirm, onBack }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label className="block text-xs text-muted/70 mb-1.5 tracking-wide">Expiry *</label>
           <Input

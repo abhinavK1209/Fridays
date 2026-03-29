@@ -204,18 +204,7 @@ export default function Hero() {
       >
 
       {/* ── Content grid ── */}
-      <div
-        style={{
-          width:        '100%',
-          maxWidth:     '1280px',
-          margin:       '0 auto',
-          padding:      '0 48px',
-          display:      'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap:          '32px',
-          alignItems:   'center',
-        }}
-      >
+      <div className="hero-grid">
         {/* ── Left: Copy ── */}
         <div>
           {/* Eyebrow */}
@@ -371,6 +360,7 @@ export default function Hero() {
 
           {/* Trust pillars */}
           <div
+            className="hero-trust-pillars"
             style={{
               display:    'flex',
               gap:        '40px',
@@ -414,6 +404,7 @@ export default function Hero() {
         {/* ── Right: Bottle ── */}
         <div
           ref={bottleRef}
+          className="hero-bottle-col"
           style={{
             position:       'relative',
             display:        'flex',
