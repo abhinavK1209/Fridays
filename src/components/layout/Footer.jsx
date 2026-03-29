@@ -67,12 +67,14 @@ export default function Footer() {
             {/* Social */}
             <div className="flex gap-4">
               {[
-                { Icon: Instagram, label: 'Instagram' },
-                { Icon: Twitter, label: 'Twitter' },
-              ].map(({ Icon, label }) => (
+                { Icon: Instagram, label: 'Instagram', href: 'https://instagram.com' },
+                { Icon: Twitter, label: 'Twitter', href: 'https://x.com' },
+              ].map(({ Icon, label, href }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-silver/60 hover:text-white hover:border-amber/50 transition-all duration-300"
                 >
