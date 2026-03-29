@@ -6,7 +6,7 @@ export default function CookiesPage() {
           <div className="w-8 h-px bg-amber/60" />
           <span className="text-xs uppercase tracking-[0.28em] text-amber/80">Legal</span>
         </div>
-        <h1 className="font-serif text-5xl text-white mb-3 tracking-wide">Cookie Policy</h1>
+        <h1 className="font-serif text-[clamp(2.2rem,4vw,3.2rem)] text-white mb-3 tracking-wide">Cookie Policy</h1>
         <p className="text-xs uppercase tracking-widest text-muted/40 mb-16">Last updated — coming soon</p>
 
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '48px' }}>

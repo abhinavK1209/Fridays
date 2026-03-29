@@ -1,0 +1,48 @@
+FRIDAY'S FRAGRANCE — SMTP SETUP NOTES
+──────────────────────────────────────────────────────────────
+
+GOAL: Send emails from noreply@fridaysfragrance.com instead of
+      noreply@fridays-2b66f.firebaseapp.com
+
+This improves deliverability and keeps branding consistent.
+Do this before public launch.
+
+──────────────────────────────────────────────────────────────
+RECOMMENDED PROVIDER: Resend (resend.com)
+  — Free tier: 3,000 emails/month
+  — Easiest DNS setup
+  — Built for developers
+
+ALTERNATIVES: SendGrid, Mailgun, Postmark
+──────────────────────────────────────────────────────────────
+
+STEPS:
+
+1. Buy/own a domain (e.g. fridaysfragrance.com)
+
+2. Sign up at resend.com
+   — Add your domain
+   — Copy the SPF, DKIM, and DMARC DNS records they provide
+   — Add those records in your domain registrar (Cloudflare,
+     Namecheap, GoDaddy, etc.)
+   — Wait for verification (usually under 10 minutes)
+
+3. Get your SMTP credentials from Resend:
+   Host:     smtp.resend.com
+   Port:     465 (SSL) or 587 (TLS)
+   Username: resend
+   Password: your Resend API key
+
+4. In Firebase console:
+   Authentication → Templates → SMTP settings
+   — Enter the credentials above
+   — From address: noreply@fridaysfragrance.com
+   — Sender name:  Friday's
+
+5. Send a test email to confirm delivery.
+
+──────────────────────────────────────────────────────────────
+SENDER NAME (all templates): Friday's
+FROM ADDRESS (after SMTP):   noreply@fridaysfragrance.com
+REPLY-TO:                    support@fridaysfragrance.com
+──────────────────────────────────────────────────────────────

@@ -61,6 +61,12 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Spinner (used in AuthModal, AccountPage loaders) */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 /* Floating orbs (hero background) */
 @keyframes orbFloat1 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }

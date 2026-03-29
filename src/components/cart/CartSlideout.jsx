@@ -14,13 +14,13 @@ function CartItem({ item, onRemove, onUpdateQty }) {
     <div className="flex items-start gap-4 py-5 border-b border-white/8 last:border-0">
       {/* Product image */}
       <div
-        className="w-16 h-20 rounded-xl border border-white/10 flex items-center justify-center shrink-0 relative overflow-hidden"
-        style={{ background: 'linear-gradient(145deg, rgba(18,22,30,0.95), rgba(10,12,18,0.98))' }}
+        className="w-16 h-20 rounded-xl border border-white/10 shrink-0 relative overflow-hidden flex items-center justify-center"
+        style={{ background: item.product.bottleGradient }}
       >
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: `radial-gradient(circle at 50% 70%, ${item.product.glowColor.replace(/[\d.]+\)$/, '0.2)')} 0%, transparent 70%)`,
+            background: `radial-gradient(circle at 50% 70%, ${item.product.glowColor.replace(/[\d.]+\)$/, '0.25)')} 0%, transparent 70%)`,
           }}
         />
         <BottleImage

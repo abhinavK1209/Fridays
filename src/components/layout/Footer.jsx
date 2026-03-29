@@ -17,6 +17,7 @@ const footerLinks = {
     { label: 'Sustainability', to: '/about' },
   ],
   Support: [
+    { label: 'My Account', to: '/account' },
     { label: 'Shipping & Returns', to: '/terms' },
     { label: 'FAQ', to: '/terms' },
     { label: 'Contact', to: '/about' },

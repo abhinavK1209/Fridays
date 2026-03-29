@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { CartProvider } from '@/context/CartContext'
 import { ToastProvider } from '@/context/ToastContext'
+import { AuthProvider } from '@/context/AuthContext'
+import AuthModal from '@/components/common/AuthModal'
 import Header      from '@/components/layout/Header'
 import Footer      from '@/components/layout/Footer'
 import CartSlideout from '@/components/cart/CartSlideout'
@@ -13,6 +15,7 @@ import HomePage    from '@/pages/HomePage'
 import ShopPage    from '@/pages/ShopPage'
 import AboutPage   from '@/pages/AboutPage'
 import CheckoutPage from '@/pages/CheckoutPage'
+import AccountPage  from '@/pages/AccountPage'
 import NotFoundPage from '@/pages/NotFoundPage'
 import PrivacyPage  from '@/pages/PrivacyPage'
 import TermsPage    from '@/pages/TermsPage'
@@ -36,6 +39,7 @@ function AppLayout() {
 
       {!isCheckout && <Header />}
       <CartSlideout />
+      <AuthModal />
 
       <main className="flex-1">
         <AnimatePresence mode="wait" initial={false}>
@@ -51,6 +55,7 @@ function AppLayout() {
               <Route path="/shop"     element={<ShopPage />} />
               <Route path="/about"    element={<AboutPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/account"  element={<AccountPage />} />
               <Route path="/privacy"  element={<PrivacyPage />} />
               <Route path="/terms"    element={<TermsPage />} />
               <Route path="/cookies"  element={<CookiesPage />} />
@@ -67,12 +72,14 @@ function AppLayout() {
 
 export default function App() {
   return (
-    <CartProvider>
-      <ToastProvider>
-        <HashRouter>
-          <AppLayout />
-        </HashRouter>
-      </ToastProvider>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <ToastProvider>
+          <HashRouter>
+            <AppLayout />
+          </HashRouter>
+        </ToastProvider>
+      </CartProvider>
+    </AuthProvider>
   )
 }

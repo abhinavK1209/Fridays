@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Check, CreditCard, Lock, Package } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, CreditCard, Lock, Package, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useCart } from '@/context/CartContext'
+import { useAuth } from '@/context/AuthContext'
 import { processPayment } from '@/lib/stripe'
+import { saveOrder } from '@/lib/firestore'
 import { cn } from '@/lib/utils'
 
 const STEPS = ['Shipping', 'Payment', 'Confirmation']
@@ -97,8 +99,9 @@ function OrderSummary({ items, subtotal }) {
 }
 
 function ShippingForm({ onNext }) {
+  const { user, openModal } = useAuth()
   const [form, setForm] = useState({
-    firstName: '', lastName: '', email: '', phone: '',
+    firstName: '', lastName: '', email: user?.email || '', phone: '',
     address: '', apt: '', city: '', state: '', zip: '', country: 'US',
   })
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
@@ -115,6 +118,23 @@ function ShippingForm({ onNext }) {
         <p className="text-sm text-muted/60">Where should we send your order?</p>
       </div>
 
+      {/* Sign-in nudge for guests */}
+      {!user && (
+        <div className="flex items-center justify-between p-4 rounded-xl border border-white/8 bg-white/2">
+          <div className="flex items-center gap-2">
+            <User className="w-4 h-4 text-amber/60" />
+            <span className="text-xs text-muted/60">Sign in to save your order history</span>
+          </div>
+          <button
+            type="button"
+            onClick={openModal}
+            className="text-xs text-amber/80 hover:text-amber transition-colors underline underline-offset-2"
+          >
+            Sign in
+          </button>
+        </div>
+      )}
+
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="block text-xs text-muted/70 mb-1.5 tracking-wide">First Name *</label>
@@ -128,7 +148,15 @@ function ShippingForm({ onNext }) {
 
       <div>
         <label className="block text-xs text-muted/70 mb-1.5 tracking-wide">Email *</label>
-        <Input type="email" value={form.email} onChange={set('email')} placeholder="you@email.com" required />
+        <Input
+          type="email"
+          value={form.email}
+          onChange={set('email')}
+          placeholder="you@email.com"
+          required
+          readOnly={!!user}
+          style={user ? { opacity: 0.6, cursor: 'default' } : {}}
+        />
       </div>
 
       <div>
@@ -195,7 +223,7 @@ function PaymentForm({ shippingInfo, cartSubtotal, items, onConfirm, onBack }) {
       // ── STRIPE STUB ── replace with real stripe.confirmCardPayment()
       // See src/lib/stripe.js for integration instructions
       await processPayment({ amount: cartSubtotal, cardDetails: card, shippingInfo })
-      onConfirm()
+      await onConfirm(items, cartSubtotal)
     } finally {
       setIsProcessing(false)
     }
@@ -306,8 +334,7 @@ function PaymentForm({ shippingInfo, cartSubtotal, items, onConfirm, onBack }) {
   )
 }
 
-function Confirmation({ shippingInfo }) {
-  const [orderId] = useState(() => `FRI-${Date.now().toString(36).toUpperCase()}`)
+function Confirmation({ shippingInfo, orderId }) {
 
   return (
     <div className="text-center py-8">
@@ -344,9 +371,11 @@ function Confirmation({ shippingInfo }) {
 
 export default function CheckoutPage() {
   const { items, cartSubtotal, clearCart } = useCart()
+  const { user } = useAuth()
   const navigate = useNavigate()
   const [step, setStep] = useState(0) // 0=shipping, 1=payment, 2=confirmation
   const [shippingInfo, setShippingInfo] = useState(null)
+  const [orderId, setOrderId] = useState('')
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -365,7 +394,27 @@ export default function CheckoutPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const handleConfirm = () => {
+  const handleConfirm = async (completedItems, completedSubtotal) => {
+    const id = `FRI-${Date.now().toString(36).toUpperCase()}`
+    setOrderId(id)
+    const shipping  = cartSubtotal >= 100 ? 0 : 9.95
+    const total     = completedSubtotal * 1.08 + shipping
+
+    if (user) {
+      try {
+        await saveOrder(user.uid, {
+          orderId:  id,
+          items:    completedItems,
+          shipping: shippingInfo,
+          subtotal: completedSubtotal,
+          total,
+          status:   'confirmed',
+        })
+      } catch {
+        // order still confirmed locally even if Firestore write fails
+      }
+    }
+
     clearCart()
     setStep(2)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -402,7 +451,7 @@ export default function CheckoutPage() {
               />
             )}
             {step === 2 && (
-              <Confirmation shippingInfo={shippingInfo} />
+              <Confirmation shippingInfo={shippingInfo} orderId={orderId} />
             )}
           </div>
 

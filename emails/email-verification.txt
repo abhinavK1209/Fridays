@@ -1,0 +1,27 @@
+FRIDAY'S FRAGRANCE
+──────────────────────────────────────────────────────────────
+
+SUBJECT: Confirm your Friday's account
+
+──────────────────────────────────────────────────────────────
+
+Hello %DISPLAY_NAME%,
+
+You're one step away from Friday's.
+
+Click the link below to verify your email address and activate
+your account. Once confirmed, you'll have full access to your
+order history, saved details, and early access to new drops.
+
+%LINK%
+
+This link expires in 24 hours.
+
+If you didn't create a Friday's account, you can safely ignore
+this email. Your address will not be added to anything.
+
+──────────────────────────────────────────────────────────────
+Friday's Fragrance — Modern Scent Redefined.
+fridaysfragrance.com
+noreply@fridays-2b66f.firebaseapp.com
+──────────────────────────────────────────────────────────────

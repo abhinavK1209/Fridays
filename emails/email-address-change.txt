@@ -1,0 +1,27 @@
+FRIDAY'S FRAGRANCE
+──────────────────────────────────────────────────────────────
+
+SUBJECT: Your Friday's email address was updated
+
+──────────────────────────────────────────────────────────────
+
+Hello %DISPLAY_NAME%,
+
+The email address on your Friday's account was recently changed.
+
+If you made this update, no further action is needed. Your
+account is active and your order history remains intact.
+
+If you did NOT make this change, click the link below
+immediately to revert it and secure your account.
+
+%LINK%
+
+This link expires in 1 hour. If you're unable to recover your
+account, reply to this email and we'll assist you directly.
+
+──────────────────────────────────────────────────────────────
+Friday's Fragrance — Modern Scent Redefined.
+fridaysfragrance.com
+noreply@fridays-2b66f.firebaseapp.com
+──────────────────────────────────────────────────────────────
