@@ -4,6 +4,7 @@ import { X, Trash2, ShoppingBag } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useCart } from '@/context/CartContext'
+import BottleImage from '@/components/common/BottleImage'
 
 function CartItem({ item, onRemove, onUpdateQty }) {
   const fmt = (n) =>
@@ -11,7 +12,7 @@ function CartItem({ item, onRemove, onUpdateQty }) {
 
   return (
     <div className="flex items-start gap-4 py-5 border-b border-white/8 last:border-0">
-      {/* Mini bottle visual */}
+      {/* Product image */}
       <div
         className="w-16 h-20 rounded-xl border border-white/10 flex items-center justify-center shrink-0 relative overflow-hidden"
         style={{ background: 'linear-gradient(145deg, rgba(18,22,30,0.95), rgba(10,12,18,0.98))' }}
@@ -22,23 +23,14 @@ function CartItem({ item, onRemove, onUpdateQty }) {
             background: `radial-gradient(circle at 50% 70%, ${item.product.glowColor.replace(/[\d.]+\)$/, '0.2)')} 0%, transparent 70%)`,
           }}
         />
-        {/* Tiny bottle shape */}
-        <div className="relative" style={{ width: 28, height: 44 }}>
-          <div
-            className="absolute top-0 left-1/2 -translate-x-1/2 rounded-t-md rounded-b-sm border border-white/20"
-            style={{ width: 10, height: 5, background: 'linear-gradient(180deg, #3a4460, #1c2236)' }}
-          />
-          <div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-lg border border-white/15 flex items-center justify-center"
-            style={{
-              width: 24,
-              height: 34,
-              background: item.product.bottleGradient,
-            }}
-          >
-            <span className="font-serif text-[5px] tracking-[0.2em] text-white/70 uppercase">F</span>
-          </div>
-        </div>
+        <BottleImage
+          image={item.product.image}
+          alt={item.product.name}
+          gradient={item.product.bottleGradient}
+          glowColor={item.product.glowColor}
+          accentColor={item.product.accentColor}
+          size="sm"
+        />
       </div>
 
       {/* Details */}
