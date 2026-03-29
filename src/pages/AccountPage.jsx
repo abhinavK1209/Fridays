@@ -63,7 +63,7 @@ function OrderRow({ order }) {
           }}>
             {fmt(order.total)}
           </span>
-          <span style={{
+          <span className="order-status-badge" style={{
             fontSize: '0.6rem', letterSpacing: '0.18em', textTransform: 'uppercase',
             padding: '3px 10px', borderRadius: 20,
             border: '1px solid rgba(34,197,94,.25)', color: 'rgba(34,197,94,.8)',
@@ -439,7 +439,7 @@ export default function AccountPage() {
         </div>
 
         {/* Tabs */}
-        <div style={{ display: 'flex', gap: 4, marginBottom: 28, borderBottom: '1px solid rgba(255,255,255,.07)', paddingBottom: 0 }}>
+        <div style={{ display: 'flex', gap: 4, marginBottom: 28, borderBottom: '1px solid rgba(255,255,255,.07)', paddingBottom: 0, overflowX: 'auto' }}>
           {TABS.map(({ id, label, Icon }) => {
             const active = tab === id
             return (

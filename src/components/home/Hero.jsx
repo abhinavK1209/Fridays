@@ -402,9 +402,9 @@ export default function Hero() {
         </div>
 
         {/* ── Right: Bottle ── */}
+        <div className="hero-bottle-col">
         <div
           ref={bottleRef}
-          className="hero-bottle-col"
           style={{
             position:       'relative',
             display:        'flex',
@@ -481,6 +481,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
+        </div>{/* end hero-bottle-col wrapper */}
       </div>
       </div>{/* end content wrapper */}
 

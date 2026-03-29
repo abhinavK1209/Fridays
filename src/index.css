@@ -162,6 +162,9 @@
   .about-values-cell {
     padding: 28px 20px !important;
   }
+  .order-status-badge {
+    display: none;
+  }
 }
 
 /* ── Grain / noise texture overlay ──────────────────────────────────────────
