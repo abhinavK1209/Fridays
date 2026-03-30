@@ -1,1 +1,1 @@
-web: nginx -g 'daemon off;'
+web: npx serve -s dist -l ${PORT:-8000}
