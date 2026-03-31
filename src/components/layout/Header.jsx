@@ -132,7 +132,7 @@ export default function Header() {
           fontFamily:    "'Cormorant Garamond', Georgia, serif",
           fontSize:      '1.35rem',
           fontWeight:    400,
-          letterSpacing: '0.28em',
+          letterSpacing: '0.38em',
           textTransform: 'uppercase',
           color:         '#c8874a',
           textDecoration:'none',
@@ -198,7 +198,7 @@ export default function Header() {
             style={{
               alignItems:    'center',
               padding:       '9px 24px',
-              borderRadius:  5,
+              borderRadius:  2,
               background:    '#c8874a',
               color:         '#09090b',
               fontFamily:    "'Inter', sans-serif",
