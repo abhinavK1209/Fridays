@@ -205,8 +205,7 @@ function AccountDropdown({ user, logout }) {
 
 export default function Header() {
   const { totalItems, openCart } = useCart()
-  const { user }                 = useAuth()
-  const { logout }               = useAuth()
+  const { user, logout, openModal } = useAuth()
   const [menuOpen, setMenuOpen]  = useState(false)
   const location                 = useLocation()
 
@@ -270,6 +269,38 @@ export default function Header() {
 
         {/* Right icons */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {/* Shop CTA */}
+          <Link
+            to="/shop"
+            className="hidden md:flex"
+            style={{
+              alignItems:    'center',
+              padding:       '7px 18px',
+              border:        '1px solid rgba(223,149,80,.55)',
+              borderRadius:  6,
+              background:    'transparent',
+              color:         '#df9550',
+              fontFamily:    "'Inter', sans-serif",
+              fontSize:      '0.65rem',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              textDecoration:'none',
+              transition:    'background .2s, border-color .2s, box-shadow .2s',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background   = 'rgba(223,149,80,.1)'
+              e.currentTarget.style.borderColor  = '#df9550'
+              e.currentTarget.style.boxShadow    = '0 0 16px rgba(223,149,80,.2)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background   = 'transparent'
+              e.currentTarget.style.borderColor  = 'rgba(223,149,80,.55)'
+              e.currentTarget.style.boxShadow    = 'none'
+            }}
+          >
+            Save Now
+          </Link>
+
           {/* Cart */}
           <button
             onClick={openCart}
@@ -312,8 +343,9 @@ export default function Header() {
           {user ? (
             <AccountDropdown user={user} logout={logout} />
           ) : (
-            <Link
-              to="/account"
+            <button
+              onClick={openModal}
+              aria-label="Sign in"
               style={{
                 background: 'none',
                 border:     'none',
@@ -328,7 +360,7 @@ export default function Header() {
               onMouseLeave={e => e.currentTarget.style.color = 'rgba(223,149,80,.8)'}
             >
               <User size={18} />
-            </Link>
+            </button>
           )}
 
           {/* Mobile menu toggle */}
