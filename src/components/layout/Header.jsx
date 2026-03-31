@@ -236,7 +236,8 @@ export default function Header() {
             fontFamily:    "'Cormorant Garamond', Georgia, serif",
             fontSize:      '1.5rem',
             fontWeight:    400,
-            letterSpacing: '0.1em',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
             color:         '#df9550',
             textDecoration:'none',
           }}
@@ -255,12 +256,12 @@ export default function Header() {
                 fontSize:      '0.7rem',
                 letterSpacing: '0.18em',
                 textTransform: 'uppercase',
-                color:         location.pathname === to ? '#df9550' : 'rgba(199,203,214,.65)',
+                color:         location.pathname === to ? '#df9550' : 'rgba(199,203,214,.45)',
                 textDecoration:'none',
                 transition:    'color .2s',
               }}
               onMouseEnter={e => e.currentTarget.style.color = '#df9550'}
-              onMouseLeave={e => e.currentTarget.style.color = location.pathname === to ? '#df9550' : 'rgba(199,203,214,.65)'}
+              onMouseLeave={e => e.currentTarget.style.color = location.pathname === to ? '#df9550' : 'rgba(199,203,214,.45)'}
             >
               {label}
             </Link>
@@ -297,8 +298,32 @@ export default function Header() {
               e.currentTarget.style.boxShadow  = 'none'
             }}
           >
-            Shop Now
+            Save Now
           </Link>
+
+          {/* Account */}
+          {user ? (
+            <AccountDropdown user={user} logout={logout} />
+          ) : (
+            <button
+              onClick={openModal}
+              aria-label="Sign in"
+              style={{
+                background: 'none',
+                border:     'none',
+                cursor:     'pointer',
+                padding:    '6px 8px',
+                color:      'rgba(223,149,80,.8)',
+                transition: 'color .2s',
+                display:    'flex',
+                alignItems: 'center',
+              }}
+              onMouseEnter={e => e.currentTarget.style.color = '#df9550'}
+              onMouseLeave={e => e.currentTarget.style.color = 'rgba(223,149,80,.8)'}
+            >
+              <User size={18} />
+            </button>
+          )}
 
           {/* Cart */}
           <button
@@ -337,30 +362,6 @@ export default function Header() {
               </span>
             )}
           </button>
-
-          {/* Account */}
-          {user ? (
-            <AccountDropdown user={user} logout={logout} />
-          ) : (
-            <button
-              onClick={openModal}
-              aria-label="Sign in"
-              style={{
-                background: 'none',
-                border:     'none',
-                cursor:     'pointer',
-                padding:    '6px 8px',
-                color:      'rgba(223,149,80,.8)',
-                transition: 'color .2s',
-                display:    'flex',
-                alignItems: 'center',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = '#df9550'}
-              onMouseLeave={e => e.currentTarget.style.color = 'rgba(223,149,80,.8)'}
-            >
-              <User size={18} />
-            </button>
-          )}
 
           {/* Mobile menu toggle */}
           <button
