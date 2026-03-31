@@ -207,4 +207,7 @@ export default function AboutPage() {
             </Button>
           </div>
         </div>
-      </section>
+      </section>
+    </>
+  )
+}
