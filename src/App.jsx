@@ -17,6 +17,7 @@ import AboutPage   from '@/pages/AboutPage'
 import CheckoutPage from '@/pages/CheckoutPage'
 import AccountPage  from '@/pages/AccountPage'
 import NotFoundPage from '@/pages/NotFoundPage'
+import OrderSuccessPage from '@/pages/OrderSuccessPage'
 import PrivacyPage  from '@/pages/PrivacyPage'
 import TermsPage    from '@/pages/TermsPage'
 import CookiesPage  from '@/pages/CookiesPage'
@@ -24,7 +25,7 @@ import CookiesPage  from '@/pages/CookiesPage'
 function AppLayout() {
   const location   = useLocation()
   const { pathname } = location
-  const isCheckout = pathname === '/checkout'
+  const isCheckout = pathname === '/checkout' || pathname === '/success'
   useLenis()
 
   // Scroll to top on route change
@@ -55,6 +56,7 @@ function AppLayout() {
               <Route path="/shop"     element={<ShopPage />} />
               <Route path="/about"    element={<AboutPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/success"  element={<OrderSuccessPage />} />
               <Route path="/account"  element={<AccountPage />} />
               <Route path="/privacy"  element={<PrivacyPage />} />
               <Route path="/terms"    element={<TermsPage />} />
@@ -65,21 +67,4 @@ function AppLayout() {
         </AnimatePresence>
       </main>
 
-      {!isCheckout && <Footer />}
-    </div>
-  )
-}
-
-export default function App() {
-  return (
-    <AuthProvider>
-      <CartProvider>
-        <ToastProvider>
-          <HashRouter>
-            <AppLayout />
-          </HashRouter>
-        </ToastProvider>
-      </CartProvider>
-    </AuthProvider>
-  )
-}
+      {!isCheckout && 
