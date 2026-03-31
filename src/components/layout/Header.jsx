@@ -160,25 +160,27 @@ export default function Header() {
                   fontSize:      '0.65rem',
                   letterSpacing: '0.2em',
                   textTransform: 'uppercase',
-                  color:         active ? '#c8874a' : 'rgba(199,203,214,.42)',
+                  color:         active ? '#d4924f' : 'rgba(199,203,214,.42)',
                   textDecoration:'none',
-                  paddingBottom: '14px',
+                  paddingBottom: '16px',
                   transition:    'color .2s',
+                  textShadow:    active ? '0 0 12px rgba(212,146,79,0.9), 0 0 28px rgba(212,146,79,0.5)' : 'none',
                 }}
-                onMouseEnter={e => e.currentTarget.style.color = '#c8874a'}
-                onMouseLeave={e => e.currentTarget.style.color = active ? '#c8874a' : 'rgba(199,203,214,.42)'}
+                onMouseEnter={e => e.currentTarget.style.color = '#d4924f'}
+                onMouseLeave={e => e.currentTarget.style.color = active ? '#d4924f' : 'rgba(199,203,214,.42)'}
               >
                 {label}
-                {/* Active underline */}
+                {/* Glowing active underline */}
                 {active && (
                   <span style={{
                     position:   'absolute',
                     bottom:     0,
                     left:       '50%',
                     transform:  'translateX(-50%)',
-                    width:      '20px',
+                    width:      '140%',
                     height:     '1px',
-                    background: '#c8874a',
+                    background: 'linear-gradient(90deg, transparent, #d4924f 30%, #e8a85e 50%, #d4924f 70%, transparent)',
+                    boxShadow:  '0 0 4px #d4924f, 0 0 10px rgba(212,146,79,0.8), 0 0 22px rgba(212,146,79,0.5), 0 0 40px rgba(212,146,79,0.25)',
                   }} />
                 )}
               </Link>
