@@ -6,6 +6,7 @@ export const ADMIN_EMAILS = [
   'kurukundabhinav@gmail.com',
   'yetvald@gmail.com',
   'tanishchess@gmail.com',
+  'akhild1605@gmail.com',
 ]
 
 // Strip + alias and lowercase: yetvald+1@gmail.com → yetvald@gmail.com
