@@ -128,9 +128,9 @@ export default function Header() {
         {/* Logo — left */}
         <Link to="/" style={{
           fontFamily:    "'Cormorant Garamond', Georgia, serif",
-          fontSize:      '1.35rem',
-          fontWeight:    400,
-          letterSpacing: '0.38em',
+          fontSize:      '1.75rem',
+          fontWeight:    300,
+          letterSpacing: '0.52em',
           textTransform: 'uppercase',
           color:         '#c8874a',
           textDecoration:'none',
@@ -197,12 +197,12 @@ export default function Header() {
             className="hidden md:flex"
             style={{
               alignItems:    'center',
-              padding:       '9px 24px',
+              padding:       '11px 30px',
               borderRadius:  2,
               background:    '#c8874a',
               color:         '#09090b',
               fontFamily:    "'Inter', sans-serif",
-              fontSize:      '0.62rem',
+              fontSize:      '0.68rem',
               fontWeight:    700,
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
