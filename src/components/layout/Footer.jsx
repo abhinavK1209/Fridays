@@ -142,4 +142,17 @@ export default function Footer() {
               { label: 'Terms of Service', to: '/terms' },
               { label: 'Cookie Policy',    to: '/cookies' },
             ].map(({ label, to }) => (
-              <Link key={label} to={to} classN
+              <Link
+                key={label}
+                to={to}
+                className="text-xs text-muted/60 hover:text-white/80 transition-colors duration-300"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
+}

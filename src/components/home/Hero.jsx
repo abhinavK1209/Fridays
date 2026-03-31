@@ -471,4 +471,47 @@ export default function Hero() {
               <BottleImage
                 image={heroProducts[heroIdx].image}
                 alt={heroProducts[heroIdx].name}
-            
+                gradient={heroProducts[heroIdx].bottleGradient}
+                glowColor={heroProducts[heroIdx].glowColor}
+                accentColor={heroProducts[heroIdx].accentColor}
+                label="Friday's"
+                sublabel={heroProducts[heroIdx].name}
+                size="xl"
+              />
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div
+        style={{
+          position:      'absolute',
+          bottom:        '32px',
+          left:          '50%',
+          transform:     'translateX(-50%)',
+          display:       'flex',
+          flexDirection: 'column',
+          alignItems:    'center',
+          gap:           '8px',
+          opacity:       scrolled ? 0 : (mounted ? 0.5 : 0),
+          transition:    'opacity .5s',
+          pointerEvents: 'none',
+        }}
+      >
+        <span style={{
+          fontSize:      '0.55rem',
+          letterSpacing: '0.3em',
+          textTransform: 'uppercase',
+          color:         'rgba(199,203,214,.5)',
+          fontFamily:    "'Inter', sans-serif",
+        }}>
+          Scroll
+        </span>
+        <ChevronDown size={14} style={{ color: 'rgba(199,203,214,.4)' }} />
+      </div>
+    </section>
+  )
+}

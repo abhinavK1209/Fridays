@@ -112,4 +112,9 @@ export default function ShopPage() {
       {selectedProduct && (
         <ProductModal
           product={selectedProduct}
-          onClose={
+          onClose={() => setSelectedProduct(null)}
+        />
+      )}
+    </>
+  )
+}
