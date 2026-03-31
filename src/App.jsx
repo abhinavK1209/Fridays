@@ -67,4 +67,21 @@ function AppLayout() {
         </AnimatePresence>
       </main>
 
-      {!isCheckout && 
+      {!isCheckout && <Footer />}
+    </div>
+  )
+}
+
+export default function App() {
+  return (
+    <HashRouter>
+      <ToastProvider>
+        <AuthProvider>
+          <CartProvider>
+            <AppLayout />
+          </CartProvider>
+        </AuthProvider>
+      </ToastProvider>
+    </HashRouter>
+  )
+}
