@@ -237,7 +237,7 @@ export default function Header() {
             fontSize:      '1.5rem',
             fontWeight:    400,
             letterSpacing: '0.1em',
-            color:         '#ffffff',
+            color:         '#df9550',
             textDecoration:'none',
           }}
         >
@@ -275,30 +275,29 @@ export default function Header() {
             className="hidden md:flex"
             style={{
               alignItems:    'center',
-              padding:       '7px 18px',
-              border:        '1px solid rgba(223,149,80,.55)',
+              padding:       '8px 22px',
+              border:        'none',
               borderRadius:  6,
-              background:    'transparent',
-              color:         '#df9550',
+              background:    '#df9550',
+              color:         '#0a0b0f',
               fontFamily:    "'Inter', sans-serif",
               fontSize:      '0.65rem',
+              fontWeight:    600,
               letterSpacing: '0.18em',
               textTransform: 'uppercase',
               textDecoration:'none',
-              transition:    'background .2s, border-color .2s, box-shadow .2s',
+              transition:    'background .2s, box-shadow .2s',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.background   = 'rgba(223,149,80,.1)'
-              e.currentTarget.style.borderColor  = '#df9550'
-              e.currentTarget.style.boxShadow    = '0 0 16px rgba(223,149,80,.2)'
+              e.currentTarget.style.background = '#c9823e'
+              e.currentTarget.style.boxShadow  = '0 4px 20px rgba(223,149,80,.35)'
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.background   = 'transparent'
-              e.currentTarget.style.borderColor  = 'rgba(223,149,80,.55)'
-              e.currentTarget.style.boxShadow    = 'none'
+              e.currentTarget.style.background = '#df9550'
+              e.currentTarget.style.boxShadow  = 'none'
             }}
           >
-            Save Now
+            Shop Now
           </Link>
 
           {/* Cart */}
