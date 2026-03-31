@@ -99,7 +99,7 @@ function AccountDropdown({ user, logout }) {
 }
 
 export default function Header() {
-  const { totalItems, openCart }    = useCart()
+  const { cartCount, openCart }    = useCart()
   const { user, logout, openModal } = useAuth()
   const location                    = useLocation()
   const [scrolled,  setScrolled]    = useState(false)
@@ -181,6 +181,7 @@ export default function Header() {
             {/* Shop Now */}
             <Link
               to="/shop"
+              data-hover
               className="hidden md:inline-flex items-center"
               style={{
                 fontSize:      '0.65rem',
@@ -215,34 +216,25 @@ export default function Header() {
                 onClick={openModal}
                 aria-label="Sign in"
                 className="relative p-2 transition-colors duration-300"
-                style={{ color: 'rgba(199,203,214,.7)', background: 'none', border: 'none', cursor: 'pointer' }}
+                style={{ color: 'rgba(199,203,214,.7)' }}
                 onMouseEnter={e => e.currentTarget.style.color = '#df9550'}
                 onMouseLeave={e => e.currentTarget.style.color = 'rgba(199,203,214,.7)'}
               >
-                <User style={{ width: 20, height: 20 }} />
+                <User className="w-5 h-5" />
               </button>
             )}
 
             {/* Cart */}
             <button
               onClick={openCart}
-              aria-label={`Open cart (${totalItems} items)`}
-              className="relative p-2 transition-colors duration-300"
-              style={{ color: 'rgba(199,203,214,.7)', background: 'none', border: 'none', cursor: 'pointer' }}
-              onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
-              onMouseLeave={e => e.currentTarget.style.color = 'rgba(199,203,214,.7)'}
+              aria-label={`Open cart (${cartCount} items)`}
+              className="relative p-2 text-silver hover:text-white transition-colors duration-300"
+              style={{ color: 'rgba(199,203,214,.7)' }}
             >
-              <ShoppingBag style={{ width: 20, height: 20 }} />
-              {totalItems > 0 && (
-                <span style={{
-                  position: 'absolute', top: '-2px', right: '-2px',
-                  width: 16, height: 16, borderRadius: '50%',
-                  background: '#df9550', color: '#090b0f',
-                  fontSize: 9, fontWeight: 700,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  lineHeight: 1,
-                }}>
-                  {totalItems > 9 ? '9+' : totalItems}
+              <ShoppingBag className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-amber text-[9px] font-bold text-bg flex items-center justify-center leading-none">
+                  {cartCount > 9 ? '9+' : cartCount}
                 </span>
               )}
             </button>
@@ -251,10 +243,9 @@ export default function Header() {
             <button
               onClick={() => setMenuOpen(v => !v)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-              className="md:hidden p-2 transition-colors duration-300"
-              style={{ color: 'rgba(199,203,214,.7)', background: 'none', border: 'none', cursor: 'pointer' }}
+              className="md:hidden p-2 text-silver hover:text-white transition-colors duration-300"
             >
-              {menuOpen ? <X style={{ width: 20, height: 20 }} /> : <Menu style={{ width: 20, height: 20 }} />}
+              {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>

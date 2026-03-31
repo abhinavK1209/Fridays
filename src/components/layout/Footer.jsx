@@ -145,7 +145,7 @@ export default function Footer() {
               <Link
                 key={label}
                 to={to}
-                className="text-xs text-muted/60 hover:text-white/80 transition-colors duration-300"
+                className="text-xs text-muted/50 hover:text-white/70 transition-colors"
               >
                 {label}
               </Link>
