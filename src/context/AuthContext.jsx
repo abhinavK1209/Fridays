@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import {
   auth,
   provider,
@@ -15,17 +15,24 @@ import {
 
 const AuthContext = createContext(null)
 
+function createMissingUserError() {
+  const error = new Error('No authenticated user is available.')
+  error.code = 'auth/no-current-user'
+  return error
+}
+
 export function AuthProvider({ children }) {
-  const [user, setUser]           = useState(null)
-  const [loading, setLoading]     = useState(true)
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u)
+    const unsubscribe = onAuthStateChanged(auth, (nextUser) => {
+      setUser(nextUser)
       setLoading(false)
     })
-    return unsub
+
+    return unsubscribe
   }, [])
 
   const signInWithGoogle = useCallback(async () => {
@@ -39,10 +46,11 @@ export function AuthProvider({ children }) {
     if (!result.user.emailVerified) {
       await signOut(auth)
       setUser(null)
-      const err = new Error('Please verify your email before signing in.')
-      err.code = 'auth/email-not-verified'
-      throw err
+      const error = new Error('Please verify your email before signing in.')
+      error.code = 'auth/email-not-verified'
+      throw error
     }
+
     setUser(result.user)
     return result.user
   }, [])
@@ -68,11 +76,13 @@ export function AuthProvider({ children }) {
   }, [])
 
   const updateDisplayName = useCallback(async (displayName) => {
+    if (!auth?.currentUser) throw createMissingUserError()
     await updateProfile(auth.currentUser, { displayName })
     setUser({ ...auth.currentUser })
   }, [])
 
   const updateUserEmail = useCallback(async (newEmail) => {
+    if (!auth?.currentUser) throw createMissingUserError()
     await updateEmail(auth.currentUser, newEmail)
     setUser({ ...auth.currentUser })
   }, [])
@@ -82,32 +92,34 @@ export function AuthProvider({ children }) {
     setUser(null)
   }, [])
 
-  const openModal  = useCallback(() => setModalOpen(true),  [])
+  const openModal = useCallback(() => setModalOpen(true), [])
   const closeModal = useCallback(() => setModalOpen(false), [])
 
   return (
-    <AuthContext.Provider value={{
-      user,
-      loading,
-      modalOpen,
-      openModal,
-      closeModal,
-      signInWithGoogle,
-      signInWithEmail,
-      createAccount,
-      resendVerification,
-      resetPassword,
-      updateDisplayName,
-      updateUserEmail,
-      logout,
-    }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        modalOpen,
+        openModal,
+        closeModal,
+        signInWithGoogle,
+        signInWithEmail,
+        createAccount,
+        resendVerification,
+        resetPassword,
+        updateDisplayName,
+        updateUserEmail,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )
 }
 
 export function useAuth() {
-  const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider')
-  return ctx
+  const context = useContext(AuthContext)
+  if (!context) throw new Error('useAuth must be used within AuthProvider')
+  return context
 }

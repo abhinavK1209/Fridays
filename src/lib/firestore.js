@@ -9,26 +9,30 @@ import {
 import { db } from '@/lib/firebase'
 
 export async function saveOrder(uid, orderData) {
-  const ts = serverTimestamp()
+  if (!db) return 'local'
+
+  const timestamp = serverTimestamp()
 
   const userRef = collection(db, 'users', uid, 'orders')
-  await addDoc(userRef, { ...orderData, uid, createdAt: ts })
+  await addDoc(userRef, { ...orderData, uid, createdAt: timestamp })
 
   const adminRef = collection(db, 'orders')
-  const doc = await addDoc(adminRef, { ...orderData, uid, createdAt: ts })
+  const doc = await addDoc(adminRef, { ...orderData, uid, createdAt: timestamp })
   return doc.id
 }
 
 export async function getUserOrders(uid) {
-  const ref  = collection(db, 'users', uid, 'orders')
-  const q    = query(ref, orderBy('createdAt', 'desc'))
-  const snap = await getDocs(q)
-  return snap.docs.map(d => ({ firestoreId: d.id, ...d.data() }))
+  if (!db) return []
+
+  const ref = collection(db, 'users', uid, 'orders')
+  const snapshot = await getDocs(query(ref, orderBy('createdAt', 'desc')))
+  return snapshot.docs.map((doc) => ({ firestoreId: doc.id, ...doc.data() }))
 }
 
 export async function getAllOrders() {
-  const ref  = collection(db, 'orders')
-  const q    = query(ref, orderBy('createdAt', 'desc'))
-  const snap = await getDocs(q)
-  return snap.docs.map(d => ({ firestoreId: d.id, ...d.data() }))
+  if (!db) return []
+
+  const ref = collection(db, 'orders')
+  const snapshot = await getDocs(query(ref, orderBy('createdAt', 'desc')))
+  return snapshot.docs.map((doc) => ({ firestoreId: doc.id, ...doc.data() }))
 }

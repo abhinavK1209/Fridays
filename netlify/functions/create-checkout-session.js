@@ -10,24 +10,39 @@ exports.handler = async (event) => {
   try {
     const { items, shippingInfo, successUrl, cancelUrl } = JSON.parse(event.body)
 
-    const lineItems = items.map(item => ({
+    const lineItems = items.map((item) => ({
       price_data: {
         currency: 'usd',
         product_data: {
-          name: `Friday's ${item.product.name} — ${item.size.label}`,
+          name: `Friday's ${item.product.name} - ${item.size.label}`,
         },
-        unit_amount: Math.round(item.size.price * 100), // cents
+        unit_amount: Math.round(item.size.price * 100),
       },
       quantity: item.quantity,
     }))
 
-    // Calculate subtotal to determine shipping
     const subtotal = items.reduce((sum, item) => sum + item.size.price * item.quantity, 0)
     const freeShipping = subtotal >= 100
 
     const shippingOptions = freeShipping
-      ? [{ shipping_rate_data: { type: 'fixed_amount', fixed_amount: { amount: 0, currency: 'usd' }, display_name: 'Free Shipping' } }]
-      : [{ shipping_rate_data: { type: 'fixed_amount', fixed_amount: { amount: 995, currency: 'usd' }, display_name: 'Standard Shipping' } }]
+      ? [
+          {
+            shipping_rate_data: {
+              type: 'fixed_amount',
+              fixed_amount: { amount: 0, currency: 'usd' },
+              display_name: 'Free Shipping',
+            },
+          },
+        ]
+      : [
+          {
+            shipping_rate_data: {
+              type: 'fixed_amount',
+              fixed_amount: { amount: 995, currency: 'usd' },
+              display_name: 'Standard Shipping',
+            },
+          },
+        ]
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -42,11 +57,11 @@ exports.handler = async (event) => {
       shipping_options: shippingOptions,
       metadata: {
         firstName: shippingInfo?.firstName || '',
-        lastName:  shippingInfo?.lastName  || '',
-        address:   shippingInfo?.address   || '',
-        city:      shippingInfo?.city      || '',
-        state:     shippingInfo?.state     || '',
-        zip:       shippingInfo?.zip       || '',
+        lastName: shippingInfo?.lastName || '',
+        address: shippingInfo?.address || '',
+        city: shippingInfo?.city || '',
+        state: shippingInfo?.state || '',
+        zip: shippingInfo?.zip || '',
       },
     })
 

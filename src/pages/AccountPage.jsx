@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Package, Settings, LogOut, ChevronDown, ChevronUp, User, Mail, Lock, CheckCircle, ShieldCheck } from 'lucide-react'
+import { Package, Settings, LogOut, ChevronDown, ChevronUp, Lock, CheckCircle, ShieldCheck } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '@/context/AuthContext'
 import { getUserOrders, getAllOrders } from '@/lib/firestore'
@@ -476,7 +476,7 @@ function AdminTab() {
 }
 
 export default function AccountPage() {
-  const { user, loading, openModal, resetPassword, updateDisplayName, updateUserEmail, logout } = useAuth()
+  const { user, loading, resetPassword, updateDisplayName, updateUserEmail, logout } = useAuth()
   const navigate = useNavigate()
   const admin = user ? isAdmin(user.email) : false
 
