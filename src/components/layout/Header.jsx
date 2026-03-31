@@ -223,9 +223,7 @@ export default function Header() {
         display:    'flex',
         alignItems: 'center',
         padding:    '0 24px',
-        background: 'rgba(9,11,15,0.85)',
-        backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        background: 'linear-gradient(to bottom, rgba(9,11,15,0.92) 0%, transparent 100%)',
       }}
     >
       <div style={{ maxWidth: '1280px', width: '100%', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
