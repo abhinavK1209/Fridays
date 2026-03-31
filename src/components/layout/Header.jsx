@@ -111,9 +111,7 @@ export default function Header() {
       right:           0,
       zIndex:          50,
       height:          '76px',
-      background:      'rgba(10,11,14,0.97)',
-      backdropFilter:  'blur(24px)',
-      borderBottom:    '1px solid rgba(255,255,255,0.07)',
+      background:      'linear-gradient(to bottom, rgba(10,11,14,1) 0%, rgba(10,11,14,0.6) 70%, transparent 100%)',
     }}>
       {/* Inner wrapper — logo left, nav absolute-center, actions right */}
       <div style={{
