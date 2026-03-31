@@ -246,7 +246,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="hidden md:flex">
+        <nav style={{ alignItems: 'center', gap: '32px' }} className="hidden md:flex">
           {navLinks.map(({ label, to }) => (
             <Link
               key={label}
