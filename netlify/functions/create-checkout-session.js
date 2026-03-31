@@ -21,6 +21,14 @@ exports.handler = async (event) => {
       quantity: item.quantity,
     }))
 
+    // Calculate subtotal to determine shipping
+    const subtotal = items.reduce((sum, item) => sum + item.size.price * item.quantity, 0)
+    const freeShipping = subtotal >= 100
+
+    const shippingOptions = freeShipping
+      ? [{ shipping_rate_data: { type: 'fixed_amount', fixed_amount: { amount: 0, currency: 'usd' }, display_name: 'Free Shipping' } }]
+      : [{ shipping_rate_data: { type: 'fixed_amount', fixed_amount: { amount: 995, currency: 'usd' }, display_name: 'Standard Shipping' } }]
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
@@ -31,6 +39,7 @@ exports.handler = async (event) => {
       shipping_address_collection: {
         allowed_countries: ['US'],
       },
+      shipping_options: shippingOptions,
       metadata: {
         firstName: shippingInfo?.firstName || '',
         lastName:  shippingInfo?.lastName  || '',
