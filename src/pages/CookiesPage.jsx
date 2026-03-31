@@ -30,6 +30,4 @@ export default function CookiesPage() {
           ))}
         </div>
       </div>
-    </section>
-  )
-}
+ 
