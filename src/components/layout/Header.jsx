@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ShoppingBag, Menu, X, User, Package, Settings, LogOut, ChevronDown } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 import { useAuth } from '@/context/AuthContext'
+import { cn } from '@/lib/utils'
 
 const navLinks = [
   { label: 'Home',       to: '/' },
@@ -43,15 +44,15 @@ function AccountDropdown({ user, logout }) {
         style={{
           display: 'flex', alignItems: 'center', gap: 4,
           background: 'none', border: 'none', cursor: 'pointer',
-          padding: '6px 8px',
-          color: open ? '#df9550' : 'rgba(199,203,214,.6)',
-          transition: 'color .2s',
+          padding: '8px',
+          color: open ? '#df9550' : 'rgba(199,203,214,.7)',
+          transition: 'color .3s',
         }}
         onMouseEnter={e => e.currentTarget.style.color = '#df9550'}
-        onMouseLeave={e => e.currentTarget.style.color = open ? '#df9550' : 'rgba(199,203,214,.6)'}
+        onMouseLeave={e => e.currentTarget.style.color = open ? '#df9550' : 'rgba(199,203,214,.7)'}
       >
-        <User size={17} />
-        <ChevronDown size={11} style={{ transition: 'transform .2s', transform: open ? 'rotate(180deg)' : 'none', opacity: 0.6 }} />
+        <User style={{ width: 20, height: 20 }} />
+        <ChevronDown size={11} style={{ transition: 'transform .2s', transform: open ? 'rotate(180deg)' : 'none', opacity: 0.7 }} />
       </button>
 
       {open && (
@@ -73,7 +74,8 @@ function AccountDropdown({ user, logout }) {
           </div>
           <div style={{ padding: '8px 0' }}>
             {menuItems.map(({ label, Icon, to }) => (
-              <Link key={label} to={to} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', fontFamily: "'Inter', sans-serif", fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(199,203,214,.55)', textDecoration: 'none', transition: 'background .15s, color .15s' }}
+              <Link key={label} to={to}
+                style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', fontFamily: "'Inter', sans-serif", fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(199,203,214,.55)', textDecoration: 'none', transition: 'background .15s, color .15s' }}
                 onMouseEnter={e => { e.currentTarget.style.background = 'rgba(223,149,80,.06)'; e.currentTarget.style.color = '#df9550' }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(199,203,214,.55)' }}
               >
@@ -82,11 +84,12 @@ function AccountDropdown({ user, logout }) {
             ))}
           </div>
           <div style={{ borderTop: '1px solid rgba(255,255,255,.05)', padding: '8px 0' }}>
-            <button onClick={handleLogout} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: "'Inter', sans-serif", fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(239,68,68,.5)', transition: 'background .15s, color .15s', textAlign: 'left' }}
+            <button onClick={handleLogout}
+              style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: "'Inter', sans-serif", fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(239,68,68,.5)', transition: 'background .15s, color .15s', textAlign: 'left' }}
               onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239,68,68,.05)'; e.currentTarget.style.color = '#ef4444' }}
               onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'rgba(239,68,68,.5)' }}
             >
-              <LogOut size={13} style={{ color: 'rgba(239,68,68,.4)' }} />Sign Out
+              <LogOut size={13} style={{ color: 'rgba(239,68,68,.4)' }} />Sign out
             </button>
           </div>
         </div>
@@ -98,213 +101,207 @@ function AccountDropdown({ user, logout }) {
 export default function Header() {
   const { totalItems, openCart }    = useCart()
   const { user, logout, openModal } = useAuth()
-  const [menuOpen, setMenuOpen]     = useState(false)
   const location                    = useLocation()
+  const [scrolled,  setScrolled]    = useState(false)
+  const [menuOpen,  setMenuOpen]    = useState(false)
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', handler, { passive: true })
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
 
   useEffect(() => setMenuOpen(false), [location.pathname])
 
   return (
-    <header style={{
-      position:        'fixed',
-      top:             0,
-      left:            0,
-      right:           0,
-      zIndex:          50,
-      height:          '76px',
-      background:      'linear-gradient(to bottom, rgba(10,11,14,1) 0%, rgba(10,11,14,0.6) 70%, transparent 100%)',
-    }}>
-      {/* Inner wrapper — logo left, nav absolute-center, actions right */}
-      <div style={{
-        maxWidth:   '1280px',
-        width:      '100%',
-        margin:     '0 auto',
-        padding:    '0 40px',
-        height:     '100%',
-        display:    'flex',
-        alignItems: 'center',
-        position:   'relative',
-      }}>
+    <>
+      <header
+        className={cn(
+          'fixed top-0 w-full z-50 transition-all duration-500',
+          scrolled ? 'backdrop-blur-xl border-b border-white/8 py-4' : 'py-6'
+        )}
+        style={{ background: scrolled ? 'rgba(7,9,12,0.75)' : 'transparent' }}
+      >
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
 
-        {/* Logo — left */}
-        <Link to="/" style={{
-          fontFamily:    "'Cormorant Garamond', Georgia, serif",
-          fontSize:      '1.75rem',
-          fontWeight:    300,
-          letterSpacing: '0.52em',
-          textTransform: 'uppercase',
-          color:         '#c8874a',
-          textDecoration:'none',
-          flexShrink:    0,
-        }}>
-          Friday's
-        </Link>
+          {/* Logo */}
+          <Link to="/" style={{
+            fontFamily:    "'Cormorant Garamond', Georgia, serif",
+            fontSize:      '1.7rem',
+            fontWeight:    300,
+            letterSpacing: '0.45em',
+            color:         '#df9550',
+            textTransform: 'uppercase',
+            textDecoration:'none',
+          }}>
+            Friday's
+          </Link>
 
-        {/* Nav — absolutely centered in the header */}
-        <nav className="hidden md:flex" style={{
-          position:   'absolute',
-          left:       '50%',
-          transform:  'translateX(-50%)',
-          display:    'flex',
-          alignItems: 'center',
-          gap:        '44px',
-        }}>
-          {navLinks.map(({ label, to }) => {
-            const active = location.pathname === to
-            return (
-              <Link
-                key={label}
-                to={to}
-                style={{
-                  position:      'relative',
-                  fontFamily:    "'Inter', sans-serif",
-                  fontSize:      '0.65rem',
-                  letterSpacing: '0.2em',
-                  textTransform: 'uppercase',
-                  color:         active ? '#d4924f' : 'rgba(199,203,214,.42)',
-                  textDecoration:'none',
-                  paddingBottom: '16px',
-                  transition:    'color .2s',
-                  textShadow:    active ? '0 0 12px rgba(212,146,79,0.9), 0 0 28px rgba(212,146,79,0.5)' : 'none',
-                }}
-                onMouseEnter={e => e.currentTarget.style.color = '#d4924f'}
-                onMouseLeave={e => e.currentTarget.style.color = active ? '#d4924f' : 'rgba(199,203,214,.42)'}
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-11" aria-label="Main navigation">
+            {navLinks.map(({ label, to }) => {
+              const active = location.pathname === to
+              return (
+                <Link
+                  key={to}
+                  to={to}
+                  style={{
+                    fontSize:      '0.68rem',
+                    letterSpacing: '0.22em',
+                    textTransform: 'uppercase',
+                    textDecoration:'none',
+                    color:         active ? '#df9550' : 'rgba(199,203,214,.65)',
+                    transition:    'color .3s',
+                    position:      'relative',
+                    paddingBottom: '4px',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.color = '#df9550'}
+                  onMouseLeave={e => e.currentTarget.style.color = active ? '#df9550' : 'rgba(199,203,214,.65)'}
+                >
+                  {label}
+                  {active && (
+                    <span style={{
+                      position:     'absolute',
+                      bottom:       0,
+                      left:         0,
+                      right:        0,
+                      height:       1,
+                      background:   'linear-gradient(90deg, transparent, #df9550, transparent)',
+                      borderRadius: '1px',
+                    }} />
+                  )}
+                </Link>
+              )
+            })}
+          </nav>
+
+          {/* Actions */}
+          <div className="flex items-center gap-4">
+
+            {/* Shop Now */}
+            <Link
+              to="/shop"
+              className="hidden md:inline-flex items-center"
+              style={{
+                fontSize:      '0.65rem',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color:         '#090b0f',
+                background:    '#df9550',
+                padding:       '11px 26px',
+                fontWeight:    500,
+                textDecoration:'none',
+                transition:    'background .3s, box-shadow .3s, transform .2s',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background  = '#f0ebe0'
+                e.currentTarget.style.transform   = 'translateY(-2px)'
+                e.currentTarget.style.boxShadow   = '0 8px 28px rgba(223,149,80,.3)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background  = '#df9550'
+                e.currentTarget.style.transform   = 'none'
+                e.currentTarget.style.boxShadow   = 'none'
+              }}
+            >
+              Shop Now
+            </Link>
+
+            {/* Account */}
+            {user ? (
+              <AccountDropdown user={user} logout={logout} />
+            ) : (
+              <button
+                onClick={openModal}
+                aria-label="Sign in"
+                className="relative p-2 transition-colors duration-300"
+                style={{ color: 'rgba(199,203,214,.7)', background: 'none', border: 'none', cursor: 'pointer' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#df9550'}
+                onMouseLeave={e => e.currentTarget.style.color = 'rgba(199,203,214,.7)'}
               >
-                {label}
-                {/* Glowing active underline */}
-                {active && (
-                  <span style={{
-                    position:   'absolute',
-                    bottom:     0,
-                    left:       '50%',
-                    transform:  'translateX(-50%)',
-                    width:      '140%',
-                    height:     '1px',
-                    background: 'linear-gradient(90deg, transparent, #d4924f 30%, #e8a85e 50%, #d4924f 70%, transparent)',
-                    boxShadow:  '0 0 4px #d4924f, 0 0 10px rgba(212,146,79,0.8), 0 0 22px rgba(212,146,79,0.5), 0 0 40px rgba(212,146,79,0.25)',
-                  }} />
-                )}
-              </Link>
-            )
-          })}
+                <User style={{ width: 20, height: 20 }} />
+              </button>
+            )}
+
+            {/* Cart */}
+            <button
+              onClick={openCart}
+              aria-label={`Open cart (${totalItems} items)`}
+              className="relative p-2 transition-colors duration-300"
+              style={{ color: 'rgba(199,203,214,.7)', background: 'none', border: 'none', cursor: 'pointer' }}
+              onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
+              onMouseLeave={e => e.currentTarget.style.color = 'rgba(199,203,214,.7)'}
+            >
+              <ShoppingBag style={{ width: 20, height: 20 }} />
+              {totalItems > 0 && (
+                <span style={{
+                  position: 'absolute', top: '-2px', right: '-2px',
+                  width: 16, height: 16, borderRadius: '50%',
+                  background: '#df9550', color: '#090b0f',
+                  fontSize: 9, fontWeight: 700,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  lineHeight: 1,
+                }}>
+                  {totalItems > 9 ? '9+' : totalItems}
+                </span>
+              )}
+            </button>
+
+            {/* Mobile toggle */}
+            <button
+              onClick={() => setMenuOpen(v => !v)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              className="md:hidden p-2 transition-colors duration-300"
+              style={{ color: 'rgba(199,203,214,.7)', background: 'none', border: 'none', cursor: 'pointer' }}
+            >
+              {menuOpen ? <X style={{ width: 20, height: 20 }} /> : <Menu style={{ width: 20, height: 20 }} />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile full-screen overlay */}
+      <div
+        className={cn(
+          'fixed inset-0 z-40 flex flex-col pt-24 px-6 pb-10 md:hidden transition-all duration-300',
+          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        )}
+        style={{ background: 'rgba(7,9,12,0.97)', backdropFilter: 'blur(20px)' }}
+      >
+        <nav className="flex flex-col gap-8 mt-8" aria-label="Mobile navigation">
+          {navLinks.map(({ label, to }) => (
+            <Link
+              key={to}
+              to={to}
+              className="font-serif text-3xl text-white/80 hover:text-white transition-colors"
+            >
+              {label}
+            </Link>
+          ))}
+          {user && (
+            <>
+              <Link to="/account"              className="font-serif text-3xl text-white/80 hover:text-white transition-colors">My Orders</Link>
+              <Link to="/account?tab=settings" className="font-serif text-3xl text-white/80 hover:text-white transition-colors">Settings</Link>
+            </>
+          )}
         </nav>
 
-        {/* Actions — right */}
-        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px' }}>
-
-          {/* Shop Now CTA */}
+        <div className="mt-auto border-t border-white/10 pt-8 flex flex-col gap-4">
           <Link
             to="/shop"
-            className="hidden md:flex"
+            onClick={() => setMenuOpen(false)}
             style={{
-              alignItems:    'center',
-              padding:       '11px 30px',
-              borderRadius:  2,
-              background:    '#c8874a',
-              color:         '#09090b',
-              fontFamily:    "'Inter', sans-serif",
-              fontSize:      '0.68rem',
-              fontWeight:    700,
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              textDecoration:'none',
-              transition:    'background .2s, box-shadow .2s',
-              whiteSpace:    'nowrap',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = '#b5763d'
-              e.currentTarget.style.boxShadow  = '0 4px 18px rgba(200,135,74,.3)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = '#c8874a'
-              e.currentTarget.style.boxShadow  = 'none'
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              padding: '14px 32px', background: '#df9550', color: '#090b0f',
+              fontFamily: "'Inter', sans-serif", fontSize: '0.7rem', fontWeight: 600,
+              letterSpacing: '0.2em', textTransform: 'uppercase', textDecoration: 'none',
             }}
           >
             Shop Now
           </Link>
-
-          {/* Account icon */}
-          {user ? (
-            <AccountDropdown user={user} logout={logout} />
-          ) : (
-            <button
-              onClick={openModal}
-              aria-label="Sign in"
-              style={{
-                background: 'none', border: 'none', cursor: 'pointer',
-                padding: '6px 10px', display: 'flex', alignItems: 'center',
-                color: 'rgba(199,203,214,.55)', transition: 'color .2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = '#c8874a'}
-              onMouseLeave={e => e.currentTarget.style.color = 'rgba(199,203,214,.55)'}
-            >
-              <User size={17} />
-            </button>
-          )}
-
-          {/* Cart icon */}
-          <button
-            onClick={openCart}
-            aria-label="Open cart"
-            style={{
-              position: 'relative', background: 'none', border: 'none',
-              cursor: 'pointer', padding: '6px 10px',
-              color: 'rgba(199,203,214,.55)', transition: 'color .2s',
-            }}
-            onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
-            onMouseLeave={e => e.currentTarget.style.color = 'rgba(199,203,214,.55)'}
-          >
-            <ShoppingBag size={17} />
-            {totalItems > 0 && (
-              <span style={{
-                position: 'absolute', top: '2px', right: '4px',
-                width: '15px', height: '15px', borderRadius: '50%',
-                background: '#c8874a', color: '#09090b',
-                fontSize: '0.5rem', fontWeight: 700,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                {totalItems}
-              </span>
-            )}
-          </button>
-
-          {/* Mobile menu toggle */}
-          <button
-            onClick={() => setMenuOpen(v => !v)}
-            aria-label="Toggle menu"
-            className="md:hidden"
-            style={{
-              background: 'none', border: 'none', cursor: 'pointer',
-              padding: '6px 8px', color: 'rgba(199,203,214,.6)',
-            }}
-          >
-            {menuOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
+          <p className="text-muted text-sm tracking-widest uppercase">Modern Scent Redefined.</p>
         </div>
       </div>
-
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden" style={{
-          position: 'absolute', top: '76px', left: 0, right: 0,
-          background: 'rgba(10,11,14,0.99)',
-          borderBottom: '1px solid rgba(255,255,255,0.07)',
-          padding: '16px 24px 24px',
-          backdropFilter: 'blur(24px)',
-        }}>
-          {navLinks.map(({ label, to }) => (
-            <Link key={label} to={to} style={{
-              display: 'block', padding: '13px 0',
-              fontFamily: "'Inter', sans-serif", fontSize: '0.72rem',
-              letterSpacing: '0.2em', textTransform: 'uppercase',
-              color: location.pathname === to ? '#c8874a' : 'rgba(199,203,214,.5)',
-              textDecoration: 'none',
-              borderBottom: '1px solid rgba(255,255,255,0.05)',
-            }}>
-              {label}
-            </Link>
-          ))}
-        </div>
-      )}
-    </header>
+    </>
   )
 }
