@@ -199,10 +199,46 @@ function OrdersTab({ uid }) {
   )
 }
 
-function SettingsTab({ user, resetPassword, logout }) {
-  const [resetSent, setResetSent]   = useState(false)
-  const [resetting, setResetting]   = useState(false)
-  const navigate                    = useNavigate()
+function SettingsTab({ user, resetPassword, updateDisplayName, updateUserEmail, logout }) {
+  const navigate = useNavigate()
+  const isGoogle = user.providerData?.[0]?.providerId === 'google.com'
+
+  const nameParts  = (user.displayName || '').split(' ')
+  const [firstName, setFirstName] = useState(nameParts[0] || '')
+  const [lastName,  setLastName]  = useState(nameParts.slice(1).join(' ') || '')
+  const [email,     setEmail]     = useState(user.email || '')
+
+  const [saving,     setSaving]     = useState(false)
+  const [saved,      setSaved]      = useState(false)
+  const [saveError,  setSaveError]  = useState('')
+  const [resetSent,  setResetSent]  = useState(false)
+  const [resetting,  setResetting]  = useState(false)
+
+  async function handleSave(e) {
+    e.preventDefault()
+    setSaving(true)
+    setSaved(false)
+    setSaveError('')
+    try {
+      const newName = `${firstName.trim()} ${lastName.trim()}`.trim()
+      if (newName !== user.displayName) {
+        await updateDisplayName(newName)
+      }
+      if (email.trim() !== user.email && !isGoogle) {
+        await updateUserEmail(email.trim())
+      }
+      setSaved(true)
+      setTimeout(() => setSaved(false), 3000)
+    } catch (err) {
+      if (err.code === 'auth/requires-recent-login') {
+        setSaveError('For security, please sign out and sign back in before changing your email.')
+      } else {
+        setSaveError(err.message)
+      }
+    } finally {
+      setSaving(false)
+    }
+  }
 
   async function handleReset() {
     setResetting(true)
@@ -219,54 +255,88 @@ function SettingsTab({ user, resetPassword, logout }) {
     navigate('/')
   }
 
-  const isGoogle = user.providerData?.[0]?.providerId === 'google.com'
+  const cardStyle = {
+    padding: '20px 22px', borderRadius: 14,
+    border: '1px solid rgba(255,255,255,.07)',
+    background: 'rgba(10,12,18,0.7)',
+  }
+  const labelStyle = {
+    fontSize: '0.6rem', letterSpacing: '0.22em', textTransform: 'uppercase',
+    color: 'rgba(223,149,80,.7)', marginBottom: 14, display: 'block',
+    fontFamily: "'Inter', sans-serif",
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 480 }}>
-      {/* Profile info */}
-      <div style={{
-        padding: '20px 22px', borderRadius: 14,
-        border: '1px solid rgba(255,255,255,.07)',
-        background: 'rgba(10,12,18,0.7)',
-      }}>
-        <p style={{ fontSize: '0.6rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(223,149,80,.7)', marginBottom: 14 }}>
-          Account
-        </p>
+
+      {/* Edit profile form */}
+      <form onSubmit={handleSave} style={cardStyle}>
+        <span style={labelStyle}>Profile</span>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <User size={14} style={{ color: 'rgba(199,203,214,.35)', flexShrink: 0 }} />
-            <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,.7)', fontFamily: "'Inter', sans-serif" }}>
-              {user.displayName || 'No display name'}
-            </span>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            <div>
+              <label style={{ fontSize: '0.7rem', color: 'rgba(199,203,214,.5)', display: 'block', marginBottom: 6, fontFamily: "'Inter', sans-serif" }}>
+                First Name
+              </label>
+              <Input value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="First" />
+            </div>
+            <div>
+              <label style={{ fontSize: '0.7rem', color: 'rgba(199,203,214,.5)', display: 'block', marginBottom: 6, fontFamily: "'Inter', sans-serif" }}>
+                Last Name
+              </label>
+              <Input value={lastName} onChange={e => setLastName(e.target.value)} placeholder="Last" />
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Mail size={14} style={{ color: 'rgba(199,203,214,.35)', flexShrink: 0 }} />
-            <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,.7)', fontFamily: "'Inter', sans-serif" }}>
-              {user.email}
-            </span>
+
+          <div>
+            <label style={{ fontSize: '0.7rem', color: 'rgba(199,203,214,.5)', display: 'block', marginBottom: 6, fontFamily: "'Inter', sans-serif" }}>
+              Email {isGoogle && <span style={{ color: 'rgba(199,203,214,.3)' }}>(managed by Google)</span>}
+            </label>
+            <Input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="you@email.com"
+              readOnly={isGoogle}
+              style={isGoogle ? { opacity: 0.4, cursor: 'default' } : {}}
+            />
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{
-              fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase',
-              padding: '2px 8px', borderRadius: 20,
-              border: '1px solid rgba(255,255,255,.1)', color: 'rgba(199,203,214,.5)',
-            }}>
-              {isGoogle ? 'Google' : 'Email'}
-            </span>
-          </div>
+
+          {saveError && (
+            <p style={{ fontSize: '0.75rem', color: 'rgba(239,68,68,.8)', fontFamily: "'Inter', sans-serif" }}>
+              {saveError}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={saving}
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+              background: saved ? 'rgba(34,197,94,.12)' : 'rgba(223,149,80,.12)',
+              border: `1px solid ${saved ? 'rgba(34,197,94,.3)' : 'rgba(223,149,80,.3)'}`,
+              borderRadius: 10, padding: '10px 20px', cursor: saving ? 'default' : 'pointer',
+              color: saved ? 'rgba(34,197,94,.9)' : '#df9550',
+              fontFamily: "'Inter', sans-serif", fontSize: '0.72rem',
+              letterSpacing: '0.15em', textTransform: 'uppercase',
+              transition: 'all .2s', alignSelf: 'flex-start',
+            }}
+          >
+            {saving ? (
+              <><span style={{ width: 12, height: 12, border: '1.5px solid currentColor', borderTopColor: 'transparent', borderRadius: '50%', display: 'inline-block', animation: 'spin .7s linear infinite' }} /> Saving…</>
+            ) : saved ? (
+              <><CheckCircle size={13} /> Saved</>
+            ) : (
+              'Save Changes'
+            )}
+          </button>
         </div>
-      </div>
+      </form>
 
       {/* Password reset (email users only) */}
       {!isGoogle && (
-        <div style={{
-          padding: '20px 22px', borderRadius: 14,
-          border: '1px solid rgba(255,255,255,.07)',
-          background: 'rgba(10,12,18,0.7)',
-        }}>
-          <p style={{ fontSize: '0.6rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(223,149,80,.7)', marginBottom: 12 }}>
-            Password
-          </p>
+        <div style={cardStyle}>
+          <span style={labelStyle}>Password</span>
           {resetSent ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <CheckCircle size={14} style={{ color: '#df9550' }} />
@@ -406,7 +476,7 @@ function AdminTab() {
 }
 
 export default function AccountPage() {
-  const { user, loading, openModal, resetPassword, logout } = useAuth()
+  const { user, loading, openModal, resetPassword, updateDisplayName, updateUserEmail, logout } = useAuth()
   const navigate = useNavigate()
   const admin = user ? isAdmin(user.email) : false
 
@@ -474,7 +544,7 @@ export default function AccountPage() {
             transition={{ duration: 0.18 }}
           >
             {tab === 'orders'   && <OrdersTab uid={user.uid} />}
-            {tab === 'settings' && <SettingsTab user={user} resetPassword={resetPassword} logout={logout} />}
+            {tab === 'settings' && <SettingsTab user={user} resetPassword={resetPassword} updateDisplayName={updateDisplayName} updateUserEmail={updateUserEmail} logout={logout} />}
             {tab === 'admin'    && admin && <AdminTab />}
           </motion.div>
         </AnimatePresence>

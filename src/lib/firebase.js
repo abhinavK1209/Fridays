@@ -10,6 +10,7 @@ import {
   sendPasswordResetEmail,
   sendEmailVerification,
   updateProfile,
+  updateEmail,
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth'
@@ -38,6 +39,7 @@ export {
   sendPasswordResetEmail,
   sendEmailVerification,
   updateProfile,
+  updateEmail,
   signOut,
   onAuthStateChanged,
 }

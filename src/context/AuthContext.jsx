@@ -8,6 +8,7 @@ import {
   sendPasswordResetEmail,
   sendEmailVerification,
   updateProfile,
+  updateEmail,
   signOut,
   onAuthStateChanged,
 } from '@/lib/firebase'
@@ -66,6 +67,16 @@ export function AuthProvider({ children }) {
     return sendPasswordResetEmail(auth, email)
   }, [])
 
+  const updateDisplayName = useCallback(async (displayName) => {
+    await updateProfile(auth.currentUser, { displayName })
+    setUser({ ...auth.currentUser })
+  }, [])
+
+  const updateUserEmail = useCallback(async (newEmail) => {
+    await updateEmail(auth.currentUser, newEmail)
+    setUser({ ...auth.currentUser })
+  }, [])
+
   const logout = useCallback(async () => {
     await signOut(auth)
     setUser(null)
@@ -86,6 +97,8 @@ export function AuthProvider({ children }) {
       createAccount,
       resendVerification,
       resetPassword,
+      updateDisplayName,
+      updateUserEmail,
       logout,
     }}>
       {children}
