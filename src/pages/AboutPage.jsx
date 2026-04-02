@@ -72,7 +72,11 @@ export default function AboutPage() {
               src="/images/collection.png"
               alt="Friday's Fragrance Collection"
               className="w-full max-w-xl object-contain"
-              style={{ mixBlendMode: 'lighten' }}
+              style={{
+                mixBlendMode: 'lighten',
+                maskImage: 'radial-gradient(ellipse 88% 82% at 50% 52%, black 55%, transparent 100%)',
+                WebkitMaskImage: 'radial-gradient(ellipse 88% 82% at 50% 52%, black 55%, transparent 100%)',
+              }}
             />
           </div>
         </div>
