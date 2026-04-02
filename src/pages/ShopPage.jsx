@@ -61,7 +61,7 @@ export default function ShopPage() {
                 'shrink-0 px-4 py-1.5 rounded-full text-xs tracking-widest uppercase border transition-all duration-200',
                 activeCategory === cat
                   ? 'border-amber/70 bg-amber/10 text-amber'
-                  : 'border-white/12 text-muted/70 hover:border-white/25 hover:text-white'
+                  : 'border-transparent text-muted/70 hover:text-white'
               )}
             >
               {cat}

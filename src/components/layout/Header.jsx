@@ -118,7 +118,7 @@ export default function Header() {
       <header
         className={cn(
           'fixed top-0 w-full z-50 transition-all duration-500',
-          scrolled ? 'backdrop-blur-xl border-b border-white/8 py-4' : 'py-6'
+          scrolled ? 'backdrop-blur-xl py-4' : 'py-6'
         )}
         style={{ background: scrolled ? 'rgba(7,9,12,0.75)' : 'transparent' }}
       >

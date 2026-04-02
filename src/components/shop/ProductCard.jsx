@@ -27,7 +27,7 @@ export default function ProductCard({ product, onOpen }) {
 
   return (
     <div
-      className="group relative rounded-3xl border border-white/8 overflow-hidden cursor-pointer transition-all duration-500 hover:border-white/18 hover:-translate-y-1"
+      className="group relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-1"
       style={{ background: 'linear-gradient(145deg, rgba(13,15,22,0.97), rgba(8,10,15,0.98))' }}
       onClick={() => onOpen(product)}
     >
