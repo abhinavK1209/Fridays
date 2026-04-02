@@ -94,7 +94,7 @@ export default function Footer() {
                   <li key={label}>
                     <Link
                       to={to}
-                      className="text-sm text-silver/70 hover:text-white transition-colors duration-300"
+                      className="text-sm text-muted/60 hover:text-white/80 transition-colors duration-300"
                     >
                       {label}
                     </Link>

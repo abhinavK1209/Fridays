@@ -8,29 +8,29 @@ const values = [
   {
     num: '01',
     title: 'Radical Honesty',
-    body: "We print our ingredient lists in full, never hide synthetics behind 'fragrance', and price our work transparently. Luxury doesn't require mystery.",
+    body: "Full ingredient lists. No synthetics buried under 'fragrance.' No inflated margins dressed up as prestige. We tell you exactly what you're wearing and exactly what you paid for.",
   },
   {
     num: '02',
     title: 'Obsessive Sourcing',
-    body: 'Our bergamot is Calabrian. Our rose is Damascene. Our oud is ethically harvested. We travel to the source so you never have to wonder.',
+    body: 'Calabrian bergamot. Damascene rose. Ethically harvested oud. We go to the source — not because it makes a good story, but because the difference is in the bottle.',
   },
   {
     num: '03',
     title: 'No Compromise Formulas',
-    body: 'Industry standard EDP concentration is 15–20%. Ours starts at 22%. Not because we have to — because you deserve a fragrance that lasts until midnight.',
+    body: 'The industry sets EDP concentration at 15–20%. Ours starts at 22%. We did not cut corners to hit a price point. Every formula is built to last from morning through midnight.',
   },
   {
     num: '04',
     title: 'Minimal Footprint',
-    body: 'Refillable bottles. Recycled cardboard. Carbon-neutral shipping. We believe that luxury and responsibility are not opposing forces.',
+    body: 'Refillable bottles. Recycled cardboard. Carbon-neutral shipping. We are a luxury brand — and we refuse to let that be an excuse for waste.',
   },
 ]
 
 const timeline = [
-  { year: '2023', event: 'Founded in Charlotte, NC by a group of high schoolers with a single fragrance and a conviction.' },
-  { year: '2024', event: 'Expanded to five fragrances — Aelia, Azura, Kayaan, Dreams, and Liara. Four figures and growing.' },
-  { year: '2025', event: 'Building something bigger. The next chapter begins.' },
+  { year: '2023', event: 'Founded in Charlotte, NC. A group of high schoolers. One fragrance. No backing, no blueprint — just the belief that something better was possible.' },
+  { year: '2024', event: 'Five fragrances. Aelia, Azura, Kayaan, Dreams, Liara. Real revenue. Real customers. Built without asking permission.' },
+  { year: '2025', event: 'The next phase. Bigger formulas, wider reach, the same standard. We are just getting started.' },
 ]
 
 export default function AboutPage() {
@@ -57,14 +57,13 @@ export default function AboutPage() {
               <span className="text-xs uppercase tracking-[0.28em] text-amber/80">About Friday's</span>
             </div>
             <h1 className="font-serif text-[clamp(2.6rem,5vw,4.5rem)] text-white leading-tight tracking-wide mb-6">
-              Built for the<br />
-              <em className="text-amber not-italic">last hour</em><br />
-              of the week.
+              Built by<br />
+              <em className="text-amber not-italic">high schoolers.</em><br />
+              Built to last.
             </h1>
             <p className="text-silver/65 text-base leading-loose max-w-md">
-              Friday's is a fragrance brand born in Charlotte, NC — founded by high schoolers who believed
-              that great scent shouldn't cost a fortune. We build fragrances for anyone who wants to
-              leave an impression, at a price that doesn't require a second thought.
+              Friday's started in Charlotte, NC with no investors, no industry connections, and no reason to believe it would work.
+              We built it anyway. Great fragrance at a price that doesn't ask you to choose between quality and cost — that was the idea. It still is.
             </p>
           </div>
           <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] delay-200 flex justify-center lg:justify-end">
@@ -83,14 +82,14 @@ export default function AboutPage() {
       </section>
 
       {/* Brand manifesto */}
-      <section className="py-24 px-6 border-y border-white/6"
+      <section className="py-24 px-6 border-y border-white/8"
         style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(18,24,42,0.4) 0%, transparent 70%)' }}>
         <div className="max-w-3xl mx-auto text-center">
           <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms]">
             <p className="font-serif text-[clamp(1.5rem,3vw,2.4rem)] leading-[1.4] text-white/85 tracking-wide">
-              "We believe a fragrance is the most intimate thing you can wear. Not jewelry, not clothing —
-              scent reaches people before you do. It stays after you leave. It is the most personal statement
-              you can make, and we take that seriously."
+              "Scent reaches people before you do. It stays after you leave.
+              It is the most personal statement you can make —
+              and we refuse to make it cheap."
             </p>
             <div className="mt-8 flex items-center justify-center gap-3">
               <div className="w-12 h-px bg-amber/40" />
@@ -144,7 +143,7 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="py-24 px-6 border-t border-white/6">
+      <section className="py-24 px-6 border-t border-white/8">
         <div className="max-w-3xl mx-auto">
           <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] mb-14 text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -153,7 +152,7 @@ export default function AboutPage() {
               <div className="w-8 h-px bg-amber/60" />
             </div>
             <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] text-white tracking-wide">
-              From a conviction to a collection.
+              How we got here.
             </h2>
           </div>
           <div className="relative">
@@ -191,11 +190,11 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 border-t border-white/6">
+      <section className="py-24 px-6 border-t border-white/8">
         <div className="max-w-2xl mx-auto text-center">
           <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms]">
             <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] text-white tracking-wide mb-6">
-              Ready to find your signature?
+              Find the one that's yours.
             </h2>
             <Button variant="amber" size="lg" className="tracking-widest uppercase text-xs group" asChild>
               <Link to="/shop">
