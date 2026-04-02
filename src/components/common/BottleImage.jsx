@@ -18,7 +18,7 @@ import BottleIllustration from './BottleIllustration'
  *   style        — extra inline styles on the <img>
  */
 
-const SIZE_H = { sm: 130, md: 190, lg: 280, xl: 370 }
+const SIZE_H = { sm: 180, md: 300, lg: 420, xl: 540 }
 
 export default function BottleImage({
   image,
