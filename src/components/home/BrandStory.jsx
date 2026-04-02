@@ -243,7 +243,7 @@ export default function BrandStory() {
         background:  'rgba(223,149,80,.02)',
       }}>
         <Marquee
-          items={['Aelia', 'Azura', 'Kayaan', 'Dreams', 'Loruun', 'Liara']}
+          items={['Aelia', 'Azura', 'Kayaan', 'Dreams', 'Liara']}
           speed={28}
           direction="right"
           separator="·"

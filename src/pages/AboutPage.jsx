@@ -31,7 +31,7 @@ const values = [
 
 const timeline = [
   { year: '2023', event: 'Founded in Charlotte, NC by a group of high schoolers with a single fragrance and a conviction.' },
-  { year: '2024', event: 'Expanded to six fragrances — Aelia, Azura, Kayaan, Dreams, Loruun, and Liara. Four figures and growing.' },
+  { year: '2024', event: 'Expanded to five fragrances — Aelia, Azura, Kayaan, Dreams, and Liara. Four figures and growing.' },
   { year: '2025', event: 'Building something bigger. The next chapter begins.' },
 ]
 

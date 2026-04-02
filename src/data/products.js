@@ -120,35 +120,6 @@ export const products = [
     featured: false,
   },
   {
-    id: 'loruun',
-    name: 'Loruun',
-    tagline: 'Off-duty elegance. Anywhere.',
-    description: 'A fresh concentrate of sea salt, cedar, and Sicilian lime. Clean, confident, effortless.',
-    longDescription:
-      'Loruun was built for movement. A concentrate designed to travel with you — to rooftop parties, weekend escapes, and everything in between. The opening is sparkling and fresh: Sicilian lime, sea salt accord, and a whisper of cucumber. The heart is airy and clean, a light cedar and ambergris combination that feels completely effortless. The dry-down is warm skin musk — the scent of your best self.',
-    category: 'Eau de Parfum',
-    sizes: [
-      { ml: 50, price: 30, label: '50 ml' },
-    ],
-    defaultSize: 50,
-    scentNotes: {
-      top: ['Sicilian Lime', 'Sea Salt Accord', 'Cucumber'],
-      heart: ['Light Cedar', 'Ambergris', 'White Tea'],
-      base: ['Skin Musk', 'Sandalwood', 'Driftwood'],
-    },
-    ingredients:
-      'Alcohol Denat., Parfum (Fragrance), Aqua (Water), Limonene, Linalool, Citral, Geraniol, Benzyl Benzoate, Citronellol, Farnesol, Benzyl Alcohol, Coumarin.',
-    reviews: [
-      { author: 'Priya N.', rating: 4, text: 'Perfect summer fragrance. Light, fresh, surprisingly long-lasting.', date: 'Mar 2025' },
-      { author: 'Tyler R.', rating: 5, text: 'Wore it every single day on a trip. Already ordered a second one.', date: 'Feb 2025' },
-    ],
-    bottleGradient: 'linear-gradient(160deg, #051810 0%, #0e3a22 30%, #1a6040 55%, #104828 80%, #082010 100%)',
-    glowColor: 'rgba(40,200,120,0.7)',
-    accentColor: '#28c878',
-    badge: null,
-    featured: false,
-  },
-  {
     id: 'liara',
     name: 'Liara',
     tagline: 'The complete sensory experience.',
