@@ -93,6 +93,7 @@ export const products = [
   {
     id: 'dreams',
     name: 'Dreams',
+    image: '/images/dreams.png',
     tagline: 'Memory bottled. Darkness preserved.',
     description: 'A library of rare absolutes — leather, iris, tonka, and old smoke. Deep, literary, unforgettable.',
     longDescription:
@@ -122,6 +123,7 @@ export const products = [
   {
     id: 'liara',
     name: 'Liara',
+    image: '/images/liara.png',
     tagline: 'The complete sensory experience.',
     description: 'Soft florals meet warm musk in a fragrance that feels like sunlight through silk.',
     longDescription:
