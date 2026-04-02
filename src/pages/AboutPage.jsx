@@ -82,7 +82,7 @@ export default function AboutPage() {
       </section>
 
       {/* Brand manifesto */}
-      <section className="py-24 px-6 border-y border-white/8"
+      <section className="py-24 px-6 border-y border-white/[0.04]"
         style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(18,24,42,0.4) 0%, transparent 70%)' }}>
         <div className="max-w-3xl mx-auto text-center">
           <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms]">
@@ -143,7 +143,7 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="py-24 px-6 border-t border-white/8">
+      <section className="py-24 px-6 border-t border-white/[0.04]">
         <div className="max-w-3xl mx-auto">
           <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] mb-14 text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -190,7 +190,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 border-t border-white/8">
+      <section className="py-24 px-6 border-t border-white/[0.04]">
         <div className="max-w-2xl mx-auto text-center">
           <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms]">
             <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] text-white tracking-wide mb-6">

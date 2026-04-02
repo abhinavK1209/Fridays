@@ -38,7 +38,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="border-t border-white/8 pt-16 pb-8"
+      className="border-t border-white/[0.04] pt-16 pb-8"
       style={{ background: 'rgba(5,7,10,0.95)', position: 'relative', overflow: 'hidden' }}
     >
       {/* Ambient glow */}
@@ -106,7 +106,7 @@ export default function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="border-t border-white/8 pt-10 mb-10">
+        <div className="border-t border-white/[0.04] pt-10 mb-10">
           <div className="max-w-md">
             <h3 className="font-serif text-xl text-white mb-2">Join the inner circle.</h3>
             <p className="text-sm text-muted mb-4">Early access to new releases, private events, and rare drops.</p>
@@ -132,7 +132,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="border-t border-white/[0.04] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-muted/60">
             © {new Date().getFullYear()} Friday's Fragrance. All rights reserved.
           </p>
