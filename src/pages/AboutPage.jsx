@@ -69,9 +69,10 @@ export default function AboutPage() {
           </div>
           <div className="reveal opacity-0 translate-y-6 transition-all duration-[900ms] delay-200 flex justify-center lg:justify-end">
             <img
-              src="/images/together.png"
+              src="/images/collection.png"
               alt="Friday's Fragrance Collection"
-              className="w-full max-w-lg object-contain drop-shadow-2xl"
+              className="w-full max-w-xl object-contain"
+              style={{ mixBlendMode: 'lighten' }}
             />
           </div>
         </div>
