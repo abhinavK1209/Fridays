@@ -11,7 +11,7 @@ export default function OrderSuccessPage() {
   useEffect(() => {
     clearCart()
     window.scrollTo({ top: 0, behavior: 'instant' })
-  }, []) // eslint-disable-line
+  }, [clearCart])
 
   return (
     <div
