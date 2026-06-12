@@ -48,8 +48,9 @@ firebase deploy --only firestore:rules,storage
 
 Or paste them in the Firebase Console (Firestore -> Rules, Storage -> Rules).
 
-The admin order list (`getAllOrders`) requires an `admin: true` custom claim on
-the account, set via the Admin SDK.
+The admin order list (`getAllOrders`) is readable only by the email allowlist
+in `firestore.rules` (`request.auth.token.email in [...]`). Add or remove
+addresses there to manage admin access.
 
 ## Server hardening applied
 
